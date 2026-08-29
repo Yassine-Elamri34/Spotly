@@ -55,7 +55,6 @@ const demoProducts = [
 
 const popular = [
   { name: "Milk", emoji: "🥛" },
-  { name: "Eggs", emoji: "🥚" },
   { name: "Bread", emoji: "🥖" },
   { name: "Drinks", emoji: "🥤" },
 ];
