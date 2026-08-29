@@ -70,55 +70,7 @@ const Home = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  const getProductEmoji = (category) => {
-    switch (category?.toLowerCase()) {
-      case "dairy":
-        return "🥛";
-
-      case "bakery":
-        return "🥖";
-
-      case "produce":
-        return "🍎";
-
-      case "beverages":
-      case "drinks":
-        return "🥤";
-
-      case "meat":
-        return "🥩";
-
-      case "seafood":
-        return "🐟";
-
-      case "frozen":
-        return "❄️";
-
-      case "snacks":
-        return "🍪";
-
-      case "household":
-        return "🧼";
-
-      case "personal care":
-        return "🧴";
-
-      case "baby":
-        return "👶";
-
-      case "pet":
-        return "🐶";
-
-      case "pharmacy":
-        return "💊";
-
-      case "international":
-        return "🌍";
-
-      default:
-        return "🛒";
-    }
-  };
+ 
 
   const selectPopular = (category) => {
     setSearch(category);
@@ -467,11 +419,9 @@ const Home = () => {
                             {/* ICON */}
                             <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-xl bg-slate-50 transition group-hover:bg-blue-50">
 
-                              <span className="text-4xl">
-                                {getProductEmoji(
-                                  product.category
-                                )}
-                              </span>
+                             <span className="text-4xl">
+  {product.emoji || "🛒"}
+</span>
 
                             </div>
 
