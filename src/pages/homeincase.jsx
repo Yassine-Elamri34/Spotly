@@ -141,63 +141,6 @@ const Home = () => {
 
     return () => clearTimeout(delay);
   }, [search]);
-const storeAisles = [
-  {
-    number: 1,
-    name: "Pantry",
-    emoji: "🍝",
-    items: "Rice • Pasta • Sauces",
-  },
-  {
-    number: 2,
-    name: "Drinks",
-    emoji: "🥤",
-    items: "Water • Juice • Soda",
-  },
-  {
-    number: 3,
-    name: "Household",
-    emoji: "🧼",
-    items: "Cleaning • Paper",
-  },
-  {
-    number: 4,
-    name: "Pet",
-    emoji: "🐶",
-    items: "Dog • Cat",
-  },
-  {
-    number: 5,
-    name: "Baby",
-    emoji: "👶",
-    items: "Diapers • Baby Care",
-  },
-  {
-    number: 6,
-    name: "Pharmacy",
-    emoji: "💊",
-    items: "Health • Personal Care",
-  },
-];
-
-const wallSections = [
-  {
-    name: "Meat",
-    emoji: "🥩",
-  },
-  {
-    name: "Deli",
-    emoji: "🧀",
-  },
-  {
-    name: "Dairy",
-    emoji: "🥛",
-  },
-  {
-    name: "Prepared Food",
-    emoji: "🍱",
-  },
-];
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
@@ -784,336 +727,119 @@ const wallSections = [
           </div>
 
           {/* STORE MAP */}
-          {/* STORE MAP */}
-<div id="store-map">
+          <div id="store-map">
 
-  <div className="mb-4 flex items-center justify-between">
+            <div className="mb-4 flex items-center justify-between">
 
-    <div>
-      <h2 className="text-2xl font-bold">
-        Store map
-      </h2>
+              <h2 className="text-2xl font-bold">
+                Store map
+              </h2>
 
-      <p className="mt-1 text-sm text-slate-500">
-        FreshMart Grocery • Main floor
-      </p>
-    </div>
-
-    {navigationStarted && (
-      <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">
-        Navigation started
-      </span>
-    )}
-
-  </div>
-
-  <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-
-    {/* Allows the full store to stay readable on mobile */}
-    <div className="overflow-x-auto">
-
-      <div className="relative min-h-[650px] min-w-[760px] overflow-hidden rounded-3xl border-2 border-slate-200 bg-slate-100 p-5">
-
-        {/* STORE NAME */}
-        <div className="mb-4 text-center">
-          <span className="rounded-full bg-white px-5 py-2 text-sm font-bold text-slate-600 shadow-sm">
-            FreshMart Grocery
-          </span>
-        </div>
-
-        {/* BACK WALL SECTIONS */}
-        <div className="grid grid-cols-4 gap-3">
-
-          {wallSections.map((section) => (
-            <div
-              key={section.name}
-              className="flex h-20 items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-3 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
-            >
-
-              <span className="text-3xl">
-                {section.emoji}
-              </span>
-
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
-                  Section
-                </p>
-
-                <p className="font-bold text-slate-800">
-                  {section.name}
-                </p>
-              </div>
-
-            </div>
-          ))}
-
-        </div>
-
-        {/* MAIN SHOPPING FLOOR */}
-        <div className="mt-5 grid grid-cols-[105px_1fr_105px] gap-4">
-
-          {/* LEFT SIDE */}
-          <div className="flex flex-col gap-4">
-
-            {/* PRODUCE */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-green-200 bg-white p-3 text-center shadow-sm transition hover:border-green-400 hover:shadow-md">
-
-              <span className="text-4xl">
-                🍎
-              </span>
-
-              <p className="mt-2 font-bold">
-                Produce
-              </p>
-
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Fruit
-                <br />
-                Vegetables
-              </p>
+              {navigationStarted && (
+                <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">
+                  Navigation started
+                </span>
+              )}
 
             </div>
 
-            {/* SANDWICH */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-orange-200 bg-white p-3 text-center shadow-sm transition hover:border-orange-400 hover:shadow-md">
+            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
 
-              <span className="text-4xl">
-                🥪
-              </span>
+              <div className="relative min-h-[420px] overflow-hidden rounded-2xl bg-slate-50">
 
-              <p className="mt-2 font-bold">
-                Sandwich
-              </p>
+                {/* PRODUCE */}
+                <div className="absolute left-4 top-6 flex h-[320px] w-[100px] flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm">
 
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Fresh made
-                <br />
-                Grab & Go
-              </p>
+                  <span className="text-sm font-medium">
+                    Produce
+                  </span>
 
-            </div>
-
-          </div>
-
-          {/* CENTER AISLES */}
-          <div className="grid grid-cols-3 gap-x-5 gap-y-5">
-
-            {storeAisles.map((aisle) => (
-              <div
-                key={aisle.number}
-                className="relative min-h-[180px]"
-              >
-
-                {/* AISLE NUMBER */}
-                <div className="mb-2 flex justify-center">
-
-                  <span className="rounded-full bg-blue-600 px-3 py-1 text-xs font-bold text-white shadow-sm">
-                    Aisle {aisle.number}
+                  <span className="mt-4 text-3xl">
+                    🍏
                   </span>
 
                 </div>
 
-                {/* SHELF */}
-                <div className="flex h-[145px] flex-col rounded-xl border border-blue-200 bg-blue-50 p-2 shadow-sm">
+                {/* BAKERY */}
+                <div className="absolute right-4 top-6 flex h-[320px] w-[100px] flex-col items-center justify-center rounded-2xl border border-slate-200 bg-white shadow-sm">
 
-                  <div className="text-center">
+                  <span className="text-sm font-medium">
+                    Bakery
+                  </span>
 
-                    <span className="text-3xl">
-                      {aisle.emoji}
-                    </span>
+                  <span className="mt-4 text-3xl">
+                    🥖
+                  </span>
 
-                    <p className="mt-1 text-sm font-bold text-slate-800">
-                      {aisle.name}
-                    </p>
+                </div>
 
-                    <p className="mt-1 text-[10px] text-slate-500">
-                      {aisle.items}
-                    </p>
+                {/* AISLES */}
+                <div className="absolute bottom-20 left-[135px] right-[135px] top-7 grid grid-cols-5 gap-4">
 
-                  </div>
+                  {[1, 2, 3, 4, 5].map((aisle) => (
+                    <div
+                      key={aisle}
+                      className="space-y-3"
+                    >
 
-                  {/* VISUAL SHELVES */}
-                  <div className="mt-auto space-y-2">
+                      {[1, 2, 3, 4, 5, 6, 7].map(
+                        (shelf) => (
+                          <div
+                            key={shelf}
+                            className="h-5 rounded bg-blue-100 transition hover:bg-blue-200"
+                          />
+                        )
+                      )}
 
-                    <div className="h-2 rounded-full bg-blue-200" />
-                    <div className="h-2 rounded-full bg-blue-200" />
-                    <div className="h-2 rounded-full bg-blue-200" />
-                    <div className="h-2 rounded-full bg-blue-200" />
+                    </div>
+                  ))}
 
-                  </div>
+                </div>
+
+                {/* ROUTE */}
+                {navigationStarted && (
+                  <>
+
+                    <div className="absolute bottom-[75px] left-1/2 h-[110px] border-l-4 border-dashed border-blue-600" />
+
+                    <div className="absolute bottom-[181px] left-1/2 w-[150px] border-t-4 border-dashed border-blue-600" />
+
+                    <div className="absolute bottom-[170px] left-[calc(50%+140px)]">
+
+                      <MapPin
+                        size={40}
+                        className="fill-blue-600 text-blue-600"
+                      />
+
+                    </div>
+
+                  </>
+                )}
+
+                {/* YOU */}
+                <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+
+                  <div className="mx-auto h-5 w-5 rounded-full border-4 border-white bg-blue-600 shadow-lg" />
+
+                  <span className="mt-1 block rounded-full bg-blue-600 px-3 py-1 text-xs text-white">
+                    You are here
+                  </span>
 
                 </div>
 
               </div>
-            ))}
 
-          </div>
-
-          {/* RIGHT SIDE */}
-          <div className="flex flex-col gap-4">
-
-            {/* BAKERY */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-amber-200 bg-white p-3 text-center shadow-sm transition hover:border-amber-400 hover:shadow-md">
-
-              <span className="text-4xl">
-                🥖
-              </span>
-
-              <p className="mt-2 font-bold">
-                Bakery
-              </p>
-
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Bread
-                <br />
-                Pastries
-              </p>
-
-            </div>
-
-            {/* FROZEN */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-cyan-200 bg-white p-3 text-center shadow-sm transition hover:border-cyan-400 hover:shadow-md">
-
-              <span className="text-4xl">
-                ❄️
-              </span>
-
-              <p className="mt-2 font-bold">
-                Frozen
-              </p>
-
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Pizza
-                <br />
-                Frozen Food
-              </p>
+              <button
+                onClick={startNavigation}
+                className="mt-5 flex w-full items-center justify-center gap-3 rounded-xl border-2 border-blue-600 py-3.5 font-semibold text-blue-600 transition duration-200 hover:bg-blue-600 hover:text-white active:scale-[0.98]"
+              >
+                <Map size={22} />
+                Browse Store Map
+              </button>
 
             </div>
 
           </div>
-
-        </div>
-
-        {/* FRONT OF STORE */}
-        <div className="mt-5 border-t-2 border-dashed border-slate-300 pt-4">
-
-          <div className="grid grid-cols-[1fr_180px] items-end gap-5">
-
-            {/* CHECKOUTS */}
-            <div>
-
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Checkout area
-              </p>
-
-              <div className="grid grid-cols-4 gap-2">
-
-                {[1, 2, 3, 4].map((checkout) => (
-                  <div
-                    key={checkout}
-                    className="flex h-14 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white shadow-sm"
-                  >
-
-                    <span className="text-xl">
-                      🛒
-                    </span>
-
-                    <div>
-                      <p className="text-[10px] text-slate-400">
-                        Checkout
-                      </p>
-
-                      <p className="text-sm font-bold">
-                        {checkout}
-                      </p>
-                    </div>
-
-                  </div>
-                ))}
-
-              </div>
-
-            </div>
-
-            {/* ENTRANCE */}
-            <div className="rounded-2xl border-2 border-green-400 bg-green-50 p-3 text-center shadow-sm">
-
-              <span className="text-3xl">
-                🚪
-              </span>
-
-              <p className="mt-1 font-bold text-green-700">
-                Entrance
-              </p>
-
-              <p className="text-[10px] text-green-600">
-                Scan QR here
-              </p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-        {/* YOU ARE HERE */}
-        <div className="absolute bottom-[92px] right-[78px]">
-
-          <div className="relative">
-
-            <div className="absolute -inset-2 animate-ping rounded-full bg-blue-400/30" />
-
-            <div className="relative h-5 w-5 rounded-full border-4 border-white bg-blue-600 shadow-lg" />
-
-          </div>
-
-          <span className="absolute left-1/2 top-7 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-3 py-1 text-[10px] font-medium text-white shadow-md">
-            You are here
-          </span>
-
-        </div>
-
-        {/* NAVIGATION ROUTE */}
-        {navigationStarted && (
-          <>
-
-            {/* Route begins at entrance */}
-            <div className="absolute bottom-[135px] right-[86px] h-[55px] border-l-4 border-dashed border-blue-600" />
-
-            <div className="absolute bottom-[186px] right-[86px] w-[245px] border-t-4 border-dashed border-blue-600" />
-
-            <div className="absolute bottom-[178px] right-[320px]">
-
-              <MapPin
-                size={35}
-                className="fill-blue-600 text-blue-600"
-              />
-
-            </div>
-
-            <div className="absolute bottom-[215px] right-[265px] rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
-              {selectedProduct.name}
-            </div>
-
-          </>
-        )}
-
-      </div>
-
-    </div>
-
-    {/* MAP BUTTON */}
-    <button
-      onClick={startNavigation}
-      className="mt-5 flex w-full items-center justify-center gap-3 rounded-xl border-2 border-blue-600 py-3.5 font-semibold text-blue-600 transition duration-200 hover:bg-blue-600 hover:text-white active:scale-[0.98]"
-    >
-      <Map size={22} />
-      Browse Store Map
-    </button>
-
-  </div>
-
-</div>
 
         </section>
 
