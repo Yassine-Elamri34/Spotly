@@ -86,29 +86,35 @@ const Home = () => {
       });
   };
 
-  const guideToProduct = (product) => {
-    setSelectedProduct({
-      id: product.id,
-      name: product.name,
-      category: product.category,
-      price:
-        product.price !== null
-          ? `$${Number(product.price).toFixed(2)}`
-          : "Price unavailable",
-      location: `Aisle ${product.aisle} • ${product.section} • Shelf ${product.shelf}`,
-      emoji: getProductEmoji(product.category),
-    });
+ const guideToProduct = (product) => {
+  setSelectedProduct({
+    id: product.id,
+    name: product.name,
+    category: product.category,
+    price:
+      product.price !== null
+        ? `$${Number(product.price).toFixed(2)}`
+        : "Price unavailable",
 
-    setNavigationStarted(true);
+    aisle: product.aisle,
+    section: product.section,
+    shelf: product.shelf,
 
-    setTimeout(() => {
-      document
-        .getElementById("store-map")
-        ?.scrollIntoView({
-          behavior: "smooth",
-        });
-    }, 100);
-  };
+    location: `Aisle ${product.aisle} • ${product.section} • Shelf ${product.shelf}`,
+
+    emoji: product.emoji || "🛒",
+  });
+
+  setNavigationStarted(true);
+
+  setTimeout(() => {
+    document
+      .getElementById("store-map")
+      ?.scrollIntoView({
+        behavior: "smooth",
+      });
+  }, 100);
+};
 
   useEffect(() => {
     const loadProducts = async () => {
@@ -198,7 +204,266 @@ const wallSections = [
     emoji: "🍱",
   },
 ];
+const mapShelves = [
+  {
+    aisle: 7,
+    name: "Pantry",
+    emoji: "🍝",
+    items: "Rice • Pasta • Sauces",
+    left: 175,
+    top: 170,
+  },
+  {
+    aisle: 8,
+    name: "Drinks",
+    emoji: "🥤",
+    items: "Water • Juice • Soda",
+    left: 455,
+    top: 170,
+  },
+  {
+    aisle: 9,
+    name: "Personal Care",
+    emoji: "🪥",
+    items: "Oral • Body • Hygiene",
+    left: 175,
+    top: 285,
+  },
+  {
+    aisle: 10,
+    name: "Pet",
+    emoji: "🐶",
+    items: "Dog • Cat • Pet Care",
+    left: 455,
+    top: 285,
+  },
+  {
+    aisle: 11,
+    name: "Baby",
+    emoji: "👶",
+    items: "Diapers • Baby Care",
+    left: 175,
+    top: 400,
+  },
+  {
+    aisle: 12,
+    name: "Pharmacy",
+    emoji: "💊",
+    items: "Health • Medicine",
+    left: 455,
+    top: 400,
+  },
+];
 
+const getMapLocation = (product) => {
+  const text = `
+    ${product?.name || ""}
+    ${product?.category || ""}
+    ${product?.section || ""}
+  `.toLowerCase();
+
+  const aisle = String(product?.aisle || "");
+
+  // PRODUCE
+  if (
+    text.includes("banana") ||
+    text.includes("apple") ||
+    text.includes("produce") ||
+    aisle === "1"
+  ) {
+    return {
+      x: 145,
+      y: 255,
+      label: "Produce",
+      route:
+        "665,590 665,505 405,505 405,255 160,255 145,255",
+    };
+  }
+
+  // DAIRY / MILK
+  if (
+    text.includes("milk") ||
+    text.includes("dairy") ||
+    text.includes("egg") ||
+    text.includes("cheese") ||
+    aisle === "2"
+  ) {
+    return {
+      x: 395,
+      y: 135,
+      label: "Dairy",
+      route:
+        "665,590 665,505 405,505 405,150 395,150 395,135",
+    };
+  }
+
+  // BAKERY
+  if (
+    text.includes("bread") ||
+    text.includes("croissant") ||
+    text.includes("bakery") ||
+    aisle === "3"
+  ) {
+    return {
+      x: 615,
+      y: 255,
+      label: "Bakery",
+      route:
+        "665,590 665,505 600,505 600,255 615,255",
+    };
+  }
+
+  // MEAT
+  if (
+    text.includes("chicken") ||
+    text.includes("beef") ||
+    text.includes("meat") ||
+    aisle === "4"
+  ) {
+    return {
+      x: 145,
+      y: 135,
+      label: "Meat",
+      route:
+        "665,590 665,505 405,505 405,150 145,150 145,135",
+    };
+  }
+
+  // SEAFOOD
+  if (
+    text.includes("shrimp") ||
+    text.includes("seafood") ||
+    aisle === "5"
+  ) {
+    return {
+      x: 615,
+      y: 405,
+      label: "Frozen Seafood",
+      route:
+        "665,590 665,505 600,505 600,405 615,405",
+    };
+  }
+
+  // FROZEN
+  if (
+    text.includes("pizza") ||
+    text.includes("fries") ||
+    text.includes("frozen") ||
+    aisle === "6"
+  ) {
+    return {
+      x: 615,
+      y: 405,
+      label: "Frozen",
+      route:
+        "665,590 665,505 600,505 600,405 615,405",
+    };
+  }
+
+  // PANTRY
+  if (
+    text.includes("rice") ||
+    text.includes("pasta") ||
+    text.includes("pantry") ||
+    aisle === "7"
+  ) {
+    return {
+      x: 345,
+      y: 205,
+      label: "Aisle 7",
+      route:
+        "665,590 665,505 405,505 405,205 345,205",
+    };
+  }
+
+  // DRINKS
+  if (
+    text.includes("coffee") ||
+    text.includes("tea") ||
+    text.includes("drink") ||
+    text.includes("beverage") ||
+    aisle === "8"
+  ) {
+    return {
+      x: 455,
+      y: 205,
+      label: "Aisle 8",
+      route:
+        "665,590 665,505 405,505 405,205 455,205",
+    };
+  }
+
+  // PERSONAL CARE
+  if (
+    text.includes("toothpaste") ||
+    text.includes("personal care") ||
+    aisle === "9"
+  ) {
+    return {
+      x: 345,
+      y: 320,
+      label: "Aisle 9",
+      route:
+        "665,590 665,505 405,505 405,320 345,320",
+    };
+  }
+
+  // PET
+  if (
+    text.includes("dog") ||
+    text.includes("cat") ||
+    text.includes("pet") ||
+    aisle === "10"
+  ) {
+    return {
+      x: 455,
+      y: 320,
+      label: "Aisle 10",
+      route:
+        "665,590 665,505 405,505 405,320 455,320",
+    };
+  }
+
+  // BABY
+  if (
+    text.includes("diaper") ||
+    text.includes("baby") ||
+    aisle === "11"
+  ) {
+    return {
+      x: 345,
+      y: 435,
+      label: "Aisle 11",
+      route:
+        "665,590 665,505 405,505 405,435 345,435",
+    };
+  }
+
+  // PHARMACY
+  if (
+    text.includes("medicine") ||
+    text.includes("pharmacy") ||
+    aisle === "12"
+  ) {
+    return {
+      x: 455,
+      y: 435,
+      label: "Aisle 12",
+      route:
+        "665,590 665,505 405,505 405,435 455,435",
+    };
+  }
+
+  return {
+    x: 405,
+    y: 475,
+    label: "Main aisle",
+    route:
+      "665,590 665,505 405,505 405,475",
+  };
+};
+
+const mapLocation = getMapLocation(selectedProduct);
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
 
@@ -785,8 +1050,8 @@ const wallSections = [
 
           </div>
 
-          {/* STORE MAP */}
-          {/* STORE MAP */}
+          
+{/* STORE MAP */}
 <div id="store-map">
 
   <div className="mb-4 flex items-center justify-between">
@@ -809,41 +1074,49 @@ const wallSections = [
 
   </div>
 
-  <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+  <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
 
-    {/* Allows the full store to stay readable on mobile */}
     <div className="overflow-x-auto">
 
-      <div className="relative min-h-[650px] min-w-[760px] overflow-hidden rounded-3xl border-2 border-slate-200 bg-slate-100 p-5">
+      {/* MAP CANVAS */}
+      <div className="relative h-[650px] w-[760px] overflow-hidden rounded-3xl border-2 border-slate-200 bg-slate-100">
 
-        {/* STORE NAME */}
-        <div className="mb-4 text-center">
-          <span className="rounded-full bg-white px-5 py-2 text-sm font-bold text-slate-600 shadow-sm">
-            FreshMart Grocery
-          </span>
+        {/* STORE TITLE */}
+        <div className="absolute left-1/2 top-3 z-20 -translate-x-1/2 rounded-full bg-white px-5 py-2 text-xs font-bold shadow-sm">
+          FreshMart Grocery
         </div>
 
-        {/* BACK WALL SECTIONS */}
-        <div className="grid grid-cols-4 gap-3">
+        {/* ====================== */}
+        {/* BACK REFRIGERATED WALL */}
+        {/* ====================== */}
+
+        <div className="absolute left-[55px] top-[50px] z-10 grid h-[85px] w-[650px] grid-cols-4 gap-3">
 
           {wallSections.map((section) => (
             <div
               key={section.name}
-              className="flex h-20 items-center justify-center gap-3 rounded-xl border border-slate-200 bg-white px-3 shadow-sm transition duration-200 hover:-translate-y-0.5 hover:border-blue-300 hover:shadow-md"
+              className="relative overflow-hidden rounded-xl border border-cyan-200 bg-white shadow-sm"
             >
 
-              <span className="text-3xl">
-                {section.emoji}
-              </span>
+              <div className="flex items-center justify-center gap-2 py-2">
 
-              <div>
-                <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
-                  Section
-                </p>
+                <span className="text-2xl">
+                  {section.emoji}
+                </span>
 
-                <p className="font-bold text-slate-800">
+                <span className="text-sm font-bold">
                   {section.name}
-                </p>
+                </span>
+
+              </div>
+
+              {/* fridge doors */}
+              <div className="absolute bottom-0 left-0 right-0 grid h-7 grid-cols-3 gap-[2px] bg-cyan-50 p-1">
+
+                <div className="rounded-sm border border-cyan-200 bg-white" />
+                <div className="rounded-sm border border-cyan-200 bg-white" />
+                <div className="rounded-sm border border-cyan-200 bg-white" />
+
               </div>
 
             </div>
@@ -851,99 +1124,207 @@ const wallSections = [
 
         </div>
 
-        {/* MAIN SHOPPING FLOOR */}
-        <div className="mt-5 grid grid-cols-[105px_1fr_105px] gap-4">
+        {/* ====================== */}
+        {/* REAL WALKING CORRIDORS */}
+        {/* ====================== */}
 
-          {/* LEFT SIDE */}
-          <div className="flex flex-col gap-4">
+        {/* CENTER MAIN CORRIDOR */}
+        <div className="absolute left-[350px] top-[145px] h-[360px] w-[110px] rounded-xl bg-white" />
 
-            {/* PRODUCE */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-green-200 bg-white p-3 text-center shadow-sm transition hover:border-green-400 hover:shadow-md">
+        {/* TOP CROSS CORRIDOR */}
+        <div className="absolute left-[145px] top-[230px] h-[50px] w-[470px] bg-white" />
 
-              <span className="text-4xl">
-                🍎
-              </span>
+        {/* MIDDLE CROSS CORRIDOR */}
+        <div className="absolute left-[145px] top-[345px] h-[50px] w-[470px] bg-white" />
 
-              <p className="mt-2 font-bold">
-                Produce
-              </p>
+        {/* FRONT CROSS CORRIDOR */}
+        <div className="absolute left-[145px] top-[460px] h-[50px] w-[470px] bg-white" />
 
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Fruit
-                <br />
-                Vegetables
-              </p>
+        {/* LEFT WALKWAY */}
+        <div className="absolute left-[145px] top-[145px] h-[365px] w-[30px] bg-white" />
 
+        {/* RIGHT WALKWAY */}
+        <div className="absolute left-[600px] top-[145px] h-[365px] w-[30px] bg-white" />
+
+        {/* MAIN AISLE LABEL */}
+        <div className="absolute left-[370px] top-[465px] z-10 text-[10px] font-semibold uppercase tracking-widest text-slate-300">
+          Main aisle
+        </div>
+
+        {/* ====================== */}
+        {/* PRODUCE */}
+        {/* ====================== */}
+
+        <div className="absolute left-[20px] top-[165px] z-10 flex h-[165px] w-[120px] flex-col items-center justify-center rounded-2xl border border-green-200 bg-green-50 shadow-sm">
+
+          <span className="text-4xl">
+            🍎
+          </span>
+
+          <p className="mt-2 font-bold">
+            Produce
+          </p>
+
+          <p className="mt-1 text-center text-[10px] text-slate-500">
+            Fruit
+            <br />
+            Vegetables
+          </p>
+
+          <div className="mt-3 grid grid-cols-3 gap-1">
+            <span>🍌</span>
+            <span>🍎</span>
+            <span>🥬</span>
+          </div>
+
+        </div>
+
+        {/* ====================== */}
+        {/* SANDWICH */}
+        {/* ====================== */}
+
+        <div className="absolute left-[20px] top-[365px] z-10 flex h-[100px] w-[120px] flex-col items-center justify-center rounded-2xl border border-orange-200 bg-orange-50 shadow-sm">
+
+          <span className="text-3xl">
+            🥪
+          </span>
+
+          <p className="mt-1 font-bold">
+            Sandwich
+          </p>
+
+          <p className="text-[9px] text-slate-500">
+            Grab & Go
+          </p>
+
+        </div>
+
+        {/* ====================== */}
+        {/* BAKERY */}
+        {/* ====================== */}
+
+        <div className="absolute left-[620px] top-[165px] z-10 flex h-[165px] w-[120px] flex-col items-center justify-center rounded-2xl border border-amber-200 bg-amber-50 shadow-sm">
+
+          <span className="text-4xl">
+            🥖
+          </span>
+
+          <p className="mt-2 font-bold">
+            Bakery
+          </p>
+
+          <p className="mt-1 text-center text-[10px] text-slate-500">
+            Bread
+            <br />
+            Pastries
+          </p>
+
+          <div className="mt-2 flex gap-2">
+            <span>🥐</span>
+            <span>🍞</span>
+          </div>
+
+        </div>
+
+        {/* ====================== */}
+        {/* FREEZER WALL */}
+        {/* ====================== */}
+
+        <div className="absolute left-[620px] top-[365px] z-10 flex h-[100px] w-[120px] flex-col items-center justify-center rounded-2xl border border-cyan-300 bg-cyan-50 shadow-sm">
+
+          <span className="text-3xl">
+            ❄️
+          </span>
+
+          <p className="mt-1 font-bold">
+            Frozen
+          </p>
+
+          <div className="mt-2 flex gap-2">
+            <span>🍕</span>
+            <span>🍟</span>
+            <span>🦐</span>
+          </div>
+
+        </div>
+
+        {/* ====================== */}
+        {/* SUPERMARKET SHELVES */}
+        {/* ====================== */}
+
+        {mapShelves.map((shelf) => (
+          <div
+            key={shelf.aisle}
+            style={{
+              left: `${shelf.left}px`,
+              top: `${shelf.top}px`,
+            }}
+            className="absolute z-10 h-[60px] w-[170px]"
+          >
+
+            {/* AISLE SIGN */}
+            <div className="absolute -top-5 left-1/2 z-20 -translate-x-1/2 rounded-full bg-blue-600 px-3 py-1 text-[10px] font-bold text-white shadow">
+              Aisle {shelf.aisle}
             </div>
 
-            {/* SANDWICH */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-orange-200 bg-white p-3 text-center shadow-sm transition hover:border-orange-400 hover:shadow-md">
+            {/* GONDOLA SHELF */}
+            <div className="h-full rounded-lg border border-slate-300 bg-white shadow-md">
 
-              <span className="text-4xl">
-                🥪
-              </span>
+              <div className="flex h-[25px] items-center justify-center gap-2 border-b border-slate-200">
 
-              <p className="mt-2 font-bold">
-                Sandwich
-              </p>
+                <span>
+                  {shelf.emoji}
+                </span>
 
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Fresh made
-                <br />
-                Grab & Go
-              </p>
+                <span className="text-xs font-bold">
+                  {shelf.name}
+                </span>
+
+              </div>
+
+              <div className="space-y-1 px-2 pt-1">
+
+                <div className="h-[5px] rounded-full bg-slate-300" />
+                <div className="h-[5px] rounded-full bg-slate-300" />
+                <div className="h-[5px] rounded-full bg-slate-300" />
+
+              </div>
 
             </div>
 
           </div>
+        ))}
 
-          {/* CENTER AISLES */}
-          <div className="grid grid-cols-3 gap-x-5 gap-y-5">
+        {/* ====================== */}
+        {/* CHECKOUT AREA */}
+        {/* ====================== */}
 
-            {storeAisles.map((aisle) => (
+        <div className="absolute left-[150px] top-[525px] z-10">
+
+          <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
+            Checkout Area
+          </p>
+
+          <div className="flex gap-2">
+
+            {[1, 2, 3, 4].map((checkout) => (
               <div
-                key={aisle.number}
-                className="relative min-h-[180px]"
+                key={checkout}
+                className="flex h-[52px] w-[95px] items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white shadow-sm"
               >
 
-                {/* AISLE NUMBER */}
-                <div className="mb-2 flex justify-center">
+                <span>
+                  🛒
+                </span>
 
-                  <span className="rounded-full bg-blue-600 px-3 py-1 text-xs font-bold text-white shadow-sm">
-                    Aisle {aisle.number}
-                  </span>
+                <div>
+                  <p className="text-[8px] text-slate-400">
+                    Checkout
+                  </p>
 
-                </div>
-
-                {/* SHELF */}
-                <div className="flex h-[145px] flex-col rounded-xl border border-blue-200 bg-blue-50 p-2 shadow-sm">
-
-                  <div className="text-center">
-
-                    <span className="text-3xl">
-                      {aisle.emoji}
-                    </span>
-
-                    <p className="mt-1 text-sm font-bold text-slate-800">
-                      {aisle.name}
-                    </p>
-
-                    <p className="mt-1 text-[10px] text-slate-500">
-                      {aisle.items}
-                    </p>
-
-                  </div>
-
-                  {/* VISUAL SHELVES */}
-                  <div className="mt-auto space-y-2">
-
-                    <div className="h-2 rounded-full bg-blue-200" />
-                    <div className="h-2 rounded-full bg-blue-200" />
-                    <div className="h-2 rounded-full bg-blue-200" />
-                    <div className="h-2 rounded-full bg-blue-200" />
-
-                  </div>
-
+                  <p className="text-sm font-bold">
+                    {checkout}
+                  </p>
                 </div>
 
               </div>
@@ -951,117 +1332,111 @@ const wallSections = [
 
           </div>
 
-          {/* RIGHT SIDE */}
-          <div className="flex flex-col gap-4">
+        </div>
 
-            {/* BAKERY */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-amber-200 bg-white p-3 text-center shadow-sm transition hover:border-amber-400 hover:shadow-md">
+        {/* CUSTOMER SERVICE */}
+        <div className="absolute bottom-[22px] left-[20px] z-10 rounded-xl border border-slate-200 bg-white px-3 py-2 text-center shadow-sm">
 
-              <span className="text-4xl">
-                🥖
-              </span>
+          <span className="text-lg">
+            ℹ️
+          </span>
 
-              <p className="mt-2 font-bold">
-                Bakery
-              </p>
-
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Bread
-                <br />
-                Pastries
-              </p>
-
-            </div>
-
-            {/* FROZEN */}
-            <div className="flex h-[180px] flex-col items-center justify-center rounded-2xl border border-cyan-200 bg-white p-3 text-center shadow-sm transition hover:border-cyan-400 hover:shadow-md">
-
-              <span className="text-4xl">
-                ❄️
-              </span>
-
-              <p className="mt-2 font-bold">
-                Frozen
-              </p>
-
-              <p className="mt-1 text-[11px] leading-4 text-slate-400">
-                Pizza
-                <br />
-                Frozen Food
-              </p>
-
-            </div>
-
-          </div>
+          <p className="text-[9px] font-semibold">
+            Customer Service
+          </p>
 
         </div>
 
-        {/* FRONT OF STORE */}
-        <div className="mt-5 border-t-2 border-dashed border-slate-300 pt-4">
+        {/* ====================== */}
+        {/* ENTRANCE */}
+        {/* ====================== */}
 
-          <div className="grid grid-cols-[1fr_180px] items-end gap-5">
+        <div className="absolute bottom-[20px] right-[20px] z-10 flex h-[85px] w-[120px] flex-col items-center justify-center rounded-2xl border-2 border-green-400 bg-green-50 shadow-sm">
 
-            {/* CHECKOUTS */}
-            <div>
+          <span className="text-3xl">
+            🚪
+          </span>
 
-              <p className="mb-2 text-xs font-semibold uppercase tracking-wider text-slate-400">
-                Checkout area
-              </p>
+          <p className="font-bold text-green-700">
+            Entrance
+          </p>
 
-              <div className="grid grid-cols-4 gap-2">
-
-                {[1, 2, 3, 4].map((checkout) => (
-                  <div
-                    key={checkout}
-                    className="flex h-14 items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white shadow-sm"
-                  >
-
-                    <span className="text-xl">
-                      🛒
-                    </span>
-
-                    <div>
-                      <p className="text-[10px] text-slate-400">
-                        Checkout
-                      </p>
-
-                      <p className="text-sm font-bold">
-                        {checkout}
-                      </p>
-                    </div>
-
-                  </div>
-                ))}
-
-              </div>
-
-            </div>
-
-            {/* ENTRANCE */}
-            <div className="rounded-2xl border-2 border-green-400 bg-green-50 p-3 text-center shadow-sm">
-
-              <span className="text-3xl">
-                🚪
-              </span>
-
-              <p className="mt-1 font-bold text-green-700">
-                Entrance
-              </p>
-
-              <p className="text-[10px] text-green-600">
-                Scan QR here
-              </p>
-
-            </div>
-
-          </div>
+          <p className="text-[9px] text-green-600">
+            Scan QR here
+          </p>
 
         </div>
 
+        {/* EXIT */}
+        <div className="absolute bottom-[20px] right-[155px] z-10 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold">
+          Exit →
+        </div>
+
+        {/* ====================== */}
+        {/* DYNAMIC ROUTE */}
+        {/* ====================== */}
+
+        {navigationStarted && (
+          <svg
+            className="pointer-events-none absolute inset-0 z-30 h-full w-full"
+            viewBox="0 0 760 650"
+          >
+
+            <defs>
+
+              <marker
+                id="routeArrow"
+                markerWidth="10"
+                markerHeight="10"
+                refX="5"
+                refY="3"
+                orient="auto"
+              >
+                <path
+                  d="M0,0 L0,6 L6,3 z"
+                  fill="#2563eb"
+                />
+              </marker>
+
+            </defs>
+
+            {/* WHITE BORDER UNDER ROUTE */}
+            <polyline
+              points={mapLocation.route}
+              fill="none"
+              stroke="white"
+              strokeWidth="13"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {/* BLUE NAVIGATION ROUTE */}
+            <polyline
+              points={mapLocation.route}
+              fill="none"
+              stroke="#2563eb"
+              strokeWidth="7"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              markerEnd="url(#routeArrow)"
+            />
+
+          </svg>
+        )}
+
+        {/* ====================== */}
         {/* YOU ARE HERE */}
-        <div className="absolute bottom-[92px] right-[78px]">
+        {/* ====================== */}
 
-          <div className="relative">
+        <div
+          className="absolute z-40"
+          style={{
+            left: "665px",
+            top: "590px",
+          }}
+        >
+
+          <div className="relative -translate-x-1/2 -translate-y-1/2">
 
             <div className="absolute -inset-2 animate-ping rounded-full bg-blue-400/30" />
 
@@ -1069,53 +1444,58 @@ const wallSections = [
 
           </div>
 
-          <span className="absolute left-1/2 top-7 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-3 py-1 text-[10px] font-medium text-white shadow-md">
+          <span className="absolute left-1/2 top-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-2 py-1 text-[9px] font-semibold text-white shadow">
             You are here
           </span>
 
         </div>
 
-        {/* NAVIGATION ROUTE */}
+        {/* ====================== */}
+        {/* PRODUCT DESTINATION */}
+        {/* ====================== */}
+
         {navigationStarted && (
-          <>
+          <div
+            className="absolute z-40 -translate-x-1/2 -translate-y-full"
+            style={{
+              left: `${mapLocation.x}px`,
+              top: `${mapLocation.y}px`,
+            }}
+          >
 
-            {/* Route begins at entrance */}
-            <div className="absolute bottom-[135px] right-[86px] h-[55px] border-l-4 border-dashed border-blue-600" />
-
-            <div className="absolute bottom-[186px] right-[86px] w-[245px] border-t-4 border-dashed border-blue-600" />
-
-            <div className="absolute bottom-[178px] right-[320px]">
-
-              <MapPin
-                size={35}
-                className="fill-blue-600 text-blue-600"
-              />
-
+            <div className="mb-1 whitespace-nowrap rounded-lg bg-blue-600 px-3 py-1.5 text-[10px] font-bold text-white shadow-lg">
+              {selectedProduct.emoji} {selectedProduct.name}
             </div>
 
-            <div className="absolute bottom-[215px] right-[265px] rounded-lg bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white shadow-lg">
-              {selectedProduct.name}
-            </div>
+            <MapPin
+              size={38}
+              className="mx-auto fill-blue-600 text-blue-600"
+            />
 
-          </>
+          </div>
         )}
 
       </div>
 
     </div>
 
-    {/* MAP BUTTON */}
     <button
       onClick={startNavigation}
       className="mt-5 flex w-full items-center justify-center gap-3 rounded-xl border-2 border-blue-600 py-3.5 font-semibold text-blue-600 transition duration-200 hover:bg-blue-600 hover:text-white active:scale-[0.98]"
     >
       <Map size={22} />
-      Browse Store Map
+
+      {navigationStarted
+        ? `Route to ${selectedProduct.name}`
+        : "Browse Store Map"}
     </button>
 
   </div>
 
 </div>
+
+
+
 
         </section>
 
