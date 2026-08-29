@@ -626,32 +626,34 @@ const wallSections = [
 
             </div>
 
-            {/* RIGHT HERO */}
-            <div className="hidden justify-center lg:flex">
+          {/* RIGHT HERO VIDEO */}
+<div className="hidden justify-center lg:flex">
 
-              <div className="relative flex h-[430px] w-[430px] items-center justify-center rounded-full bg-blue-50">
+  <div className="flex h-[430px] w-[430px] items-center justify-center rounded-full bg-blue-50 p-8">
 
-                <div className="absolute h-[340px] w-[340px] rounded-full bg-blue-100/40" />
+    <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
 
-                <div className="relative text-center">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="h-full w-full object-cover"
+      >
+        <source
+          src="/videos/shopper.mp4"
+          type="video/mp4"
+        />
 
-                  <div className="text-[150px]">
-                    🛒
-                  </div>
+        Your browser does not support video.
+      </video>
 
-                  <div className="absolute -left-6 top-3 text-7xl">
-                    🥛
-                  </div>
+    </div>
 
-                  <div className="absolute -right-4 top-8 rotate-12 text-7xl">
-                    🥖
-                  </div>
+  </div>
 
-                </div>
-
-              </div>
-
-            </div>
+</div>
 
           </div>
 
