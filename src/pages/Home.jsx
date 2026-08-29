@@ -1377,52 +1377,31 @@ const mapLocation = getMapLocation(selectedProduct);
         {/* ====================== */}
 
         {navigationStarted && (
-          <svg
-            className="pointer-events-none absolute inset-0 z-30 h-full w-full"
-            viewBox="0 0 760 650"
-          >
+  <svg
+    className="pointer-events-none absolute inset-0 z-30 h-full w-full"
+    viewBox="0 0 760 650"
+  >
+    {/* soft white border */}
+    <polyline
+      points={mapLocation.route}
+      fill="none"
+      stroke="white"
+      strokeWidth="10"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
 
-            <defs>
-
-              <marker
-                id="routeArrow"
-                markerWidth="10"
-                markerHeight="10"
-                refX="5"
-                refY="3"
-                orient="auto"
-              >
-                <path
-                  d="M0,0 L0,6 L6,3 z"
-                  fill="#2563eb"
-                />
-              </marker>
-
-            </defs>
-
-            {/* WHITE BORDER UNDER ROUTE */}
-            <polyline
-              points={mapLocation.route}
-              fill="none"
-              stroke="white"
-              strokeWidth="13"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-
-            {/* BLUE NAVIGATION ROUTE */}
-            <polyline
-              points={mapLocation.route}
-              fill="none"
-              stroke="#2563eb"
-              strokeWidth="7"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              markerEnd="url(#routeArrow)"
-            />
-
-          </svg>
-        )}
+    {/* main blue route */}
+    <polyline
+      points={mapLocation.route}
+      fill="none"
+      stroke="#2563eb"
+      strokeWidth="5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+)}
 
         {/* ====================== */}
         {/* YOU ARE HERE */}
@@ -1454,26 +1433,26 @@ const mapLocation = getMapLocation(selectedProduct);
         {/* PRODUCT DESTINATION */}
         {/* ====================== */}
 
-        {navigationStarted && (
-          <div
-            className="absolute z-40 -translate-x-1/2 -translate-y-full"
-            style={{
-              left: `${mapLocation.x}px`,
-              top: `${mapLocation.y}px`,
-            }}
-          >
+       {navigationStarted && (
+  <div
+    className="absolute z-40 -translate-x-1/2 -translate-y-1/2"
+    style={{
+      left: `${mapLocation.x}px`,
+      top: `${mapLocation.y}px`,
+    }}
+  >
+    {/* small floating label */}
+    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-3 py-1 text-[10px] font-semibold text-white shadow-md">
+      {selectedProduct.emoji} {selectedProduct.name}
+    </div>
 
-            <div className="mb-1 whitespace-nowrap rounded-lg bg-blue-600 px-3 py-1.5 text-[10px] font-bold text-white shadow-lg">
-              {selectedProduct.emoji} {selectedProduct.name}
-            </div>
+    {/* pulse ring */}
+    <div className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/25 animate-ping" />
 
-            <MapPin
-              size={38}
-              className="mx-auto fill-blue-600 text-blue-600"
-            />
-
-          </div>
-        )}
+    {/* clean destination dot */}
+    <div className="relative h-5 w-5 rounded-full border-4 border-white bg-blue-600 shadow-lg" />
+  </div>
+)}
 
       </div>
 
