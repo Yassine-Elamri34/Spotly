@@ -204,6 +204,7 @@ const wallSections = [
     emoji: "🍱",
   },
 ];
+
 const mapShelves = [
   {
     aisle: 7,
@@ -211,17 +212,17 @@ const mapShelves = [
     emoji: "🍝",
     items: "Rice • Pasta • Sauces",
     left: 180,
-    top: 185,
-    width: 205,
+    top: 190,
+    width: 190,
   },
   {
     aisle: 8,
     name: "Drinks",
     emoji: "🥤",
     items: "Water • Juice • Soda",
-    left: 430,
-    top: 185,
-    width: 175,
+    left: 440,
+    top: 190,
+    width: 150,
   },
   {
     aisle: 9,
@@ -229,17 +230,17 @@ const mapShelves = [
     emoji: "🪥",
     items: "Oral • Body • Hygiene",
     left: 180,
-    top: 310,
-    width: 205,
+    top: 315,
+    width: 190,
   },
   {
     aisle: 10,
     name: "Pet",
     emoji: "🐶",
     items: "Dog • Cat • Pet Care",
-    left: 430,
-    top: 310,
-    width: 175,
+    left: 440,
+    top: 315,
+    width: 150,
   },
   {
     aisle: 11,
@@ -247,19 +248,20 @@ const mapShelves = [
     emoji: "👶",
     items: "Diapers • Baby Care",
     left: 180,
-    top: 435,
-    width: 205,
+    top: 440,
+    width: 190,
   },
   {
     aisle: 12,
     name: "Pharmacy",
     emoji: "💊",
     items: "Health • Medicine",
-    left: 430,
-    top: 435,
-    width: 175,
+    left: 440,
+    top: 440,
+    width: 150,
   },
 ];
+
 
 const getMapLocation = (product) => {
   const text = `
@@ -497,6 +499,16 @@ const getMapLocation = (product) => {
 };
 
 const mapLocation = getMapLocation(selectedProduct);
+
+const routePath = mapLocation.route
+  .trim()
+  .split(/\s+/)
+  .map((point, index) => {
+    const [x, y] = point.split(",");
+
+    return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+  })
+  .join(" ");
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
 
@@ -1085,6 +1097,7 @@ const mapLocation = getMapLocation(selectedProduct);
 
           
 {/* STORE MAP */}
+{/* STORE MAP */}
 <div id="store-map">
 
   <div className="mb-4 flex items-center justify-between">
@@ -1111,44 +1124,41 @@ const mapLocation = getMapLocation(selectedProduct);
 
     <div className="overflow-x-auto">
 
-      {/* MAP CANVAS */}
-      <div className="relative h-[650px] w-[760px] overflow-hidden rounded-3xl border-2 border-slate-200 bg-slate-100">
+      {/* COMPLETE STORE */}
+    <div className="relative h-[650px] w-[760px] overflow-hidden rounded-3xl border-2 border-slate-300 bg-white">
 
-        {/* STORE TITLE */}
-        <div className="absolute left-1/2 top-3 z-20 -translate-x-1/2 rounded-full bg-white px-5 py-2 text-xs font-bold shadow-sm">
+        {/* STORE NAME */}
+        <div className="absolute left-1/2 top-3 z-20 -translate-x-1/2 rounded-full border border-slate-200 bg-white px-5 py-2 text-xs font-bold shadow-sm">
           FreshMart Grocery
         </div>
 
-        {/* ====================== */}
-        {/* BACK REFRIGERATED WALL */}
-        {/* ====================== */}
-
-        <div className="absolute left-[55px] top-[50px] z-10 grid h-[85px] w-[650px] grid-cols-4 gap-3">
+        {/* BACK WALL */}
+        <div className="absolute left-[155px] top-[50px] z-10 grid h-[90px] w-[450px] grid-cols-4 gap-2">
 
           {wallSections.map((section) => (
             <div
               key={section.name}
-              className="relative overflow-hidden rounded-xl border border-cyan-200 bg-white shadow-sm"
+              className="relative overflow-hidden rounded-xl border-2 border-cyan-100 bg-white shadow-sm"
             >
 
-              <div className="flex items-center justify-center gap-2 py-2">
+              <div className="flex h-[58px] items-center justify-center gap-2">
 
                 <span className="text-2xl">
                   {section.emoji}
                 </span>
 
-                <span className="text-sm font-bold">
+                <span className="text-xs font-bold">
                   {section.name}
                 </span>
 
               </div>
 
-              {/* fridge doors */}
-              <div className="absolute bottom-0 left-0 right-0 grid h-7 grid-cols-3 gap-[2px] bg-cyan-50 p-1">
+              {/* REFRIGERATOR / COUNTER DOORS */}
+              <div className="absolute bottom-0 left-0 right-0 grid h-[27px] grid-cols-3 gap-1 bg-cyan-50 p-1">
 
-                <div className="rounded-sm border border-cyan-200 bg-white" />
-                <div className="rounded-sm border border-cyan-200 bg-white" />
-                <div className="rounded-sm border border-cyan-200 bg-white" />
+                <div className="rounded border border-cyan-200 bg-white" />
+                <div className="rounded border border-cyan-200 bg-white" />
+                <div className="rounded border border-cyan-200 bg-white" />
 
               </div>
 
@@ -1157,66 +1167,65 @@ const mapLocation = getMapLocation(selectedProduct);
 
         </div>
 
-        {/* ====================== */}
-        {/* REAL WALKING CORRIDORS */}
-        {/* ====================== */}
+        {/* ===================== */}
+        {/* WALKING CORRIDORS */}
+        {/* ===================== */}
+{/* ===================== */}
+{/* WALKING CORRIDORS */}
+{/* ===================== */}
 
-        {/* CENTER MAIN CORRIDOR */}
-        <div className="absolute left-[350px] top-[145px] h-[360px] w-[110px] rounded-xl bg-white" />
+{/* CENTER WALKING PATH */}
+<div className="absolute left-[404px] top-[150px] h-[390px] border-l-2 border-dashed border-slate-200" />
 
-        {/* TOP CROSS CORRIDOR */}
-        <div className="absolute left-[145px] top-[230px] h-[50px] w-[470px] bg-white" />
+{/* HORIZONTAL WALKWAY 1 */}
+<div className="absolute left-[150px] top-[285px] w-[460px] border-t-2 border-dashed border-slate-200" />
 
-        {/* MIDDLE CROSS CORRIDOR */}
-        <div className="absolute left-[145px] top-[345px] h-[50px] w-[470px] bg-white" />
+{/* HORIZONTAL WALKWAY 2 */}
+<div className="absolute left-[150px] top-[410px] w-[460px] border-t-2 border-dashed border-slate-200" />
 
-        {/* FRONT CROSS CORRIDOR */}
-        <div className="absolute left-[145px] top-[460px] h-[50px] w-[470px] bg-white" />
+{/* FRONT MAIN WALKWAY */}
+<div className="absolute left-[145px] top-[530px] w-[470px] border-t-2 border-dashed border-slate-200" />
 
-        {/* LEFT WALKWAY */}
-        <div className="absolute left-[145px] top-[145px] h-[365px] w-[30px] bg-white" />
+{/* WALKING DIRECTION */}
+<div className="absolute left-[395px] top-[250px] text-sm font-bold text-slate-300">
+  ↕
+</div>
 
-        {/* RIGHT WALKWAY */}
-        <div className="absolute left-[600px] top-[145px] h-[365px] w-[30px] bg-white" />
+<div className="absolute left-[395px] top-[375px] text-sm font-bold text-slate-300">
+  ↕
+</div>
 
-        {/* MAIN AISLE LABEL */}
-        <div className="absolute left-[370px] top-[465px] z-10 text-[10px] font-semibold uppercase tracking-widest text-slate-300">
-          Main aisle
-        </div>
-
-        {/* ====================== */}
+<div className="absolute left-[390px] top-[500px] whitespace-nowrap text-[8px] font-bold uppercase tracking-[2px] text-slate-300">
+  Main aisle
+</div>
+        {/* ===================== */}
         {/* PRODUCE */}
-        {/* ====================== */}
+        {/* ===================== */}
 
-        <div className="absolute left-[20px] top-[165px] z-10 flex h-[165px] w-[120px] flex-col items-center justify-center rounded-2xl border border-green-200 bg-green-50 shadow-sm">
+        <div className="absolute left-[22px] top-[165px] z-10 flex h-[225px] w-[120px] flex-col items-center justify-center rounded-2xl border-2 border-green-100 bg-green-50 shadow-sm">
 
-          <span className="text-4xl">
+          <span className="text-5xl">
             🍎
           </span>
 
-          <p className="mt-2 font-bold">
+          <p className="mt-3 text-base font-bold">
             Produce
           </p>
 
           <p className="mt-1 text-center text-[10px] text-slate-500">
-            Fruit
-            <br />
-            Vegetables
+            Fruits & Vegetables
           </p>
 
-          <div className="mt-3 grid grid-cols-3 gap-1">
+          <div className="mt-5 flex gap-2 text-lg">
             <span>🍌</span>
             <span>🍎</span>
-            <span>🥬</span>
+            <span>🥦</span>
           </div>
 
         </div>
 
-        {/* ====================== */}
         {/* SANDWICH */}
-        {/* ====================== */}
-
-        <div className="absolute left-[20px] top-[365px] z-10 flex h-[100px] w-[120px] flex-col items-center justify-center rounded-2xl border border-orange-200 bg-orange-50 shadow-sm">
+        <div className="absolute left-[22px] top-[410px] z-10 flex h-[105px] w-[120px] flex-col items-center justify-center rounded-2xl border-2 border-orange-100 bg-orange-50 shadow-sm">
 
           <span className="text-3xl">
             🥪
@@ -1232,38 +1241,36 @@ const mapLocation = getMapLocation(selectedProduct);
 
         </div>
 
-        {/* ====================== */}
+        {/* ===================== */}
         {/* BAKERY */}
-        {/* ====================== */}
+        {/* ===================== */}
 
-        <div className="absolute left-[620px] top-[165px] z-10 flex h-[165px] w-[120px] flex-col items-center justify-center rounded-2xl border border-amber-200 bg-amber-50 shadow-sm">
+        <div className="absolute left-[620px] top-[165px] z-10 flex h-[225px] w-[115px] flex-col items-center justify-center rounded-2xl border-2 border-amber-100 bg-amber-50 shadow-sm">
 
-          <span className="text-4xl">
+          <span className="text-5xl">
             🥖
           </span>
 
-          <p className="mt-2 font-bold">
+          <p className="mt-3 text-base font-bold">
             Bakery
           </p>
 
           <p className="mt-1 text-center text-[10px] text-slate-500">
-            Bread
-            <br />
-            Pastries
+            Bread & Pastries
           </p>
 
-          <div className="mt-2 flex gap-2">
+          <div className="mt-4 flex gap-3">
             <span>🥐</span>
             <span>🍞</span>
           </div>
 
         </div>
 
-        {/* ====================== */}
-        {/* FREEZER WALL */}
-        {/* ====================== */}
+        {/* ===================== */}
+        {/* FROZEN */}
+        {/* ===================== */}
 
-        <div className="absolute left-[620px] top-[365px] z-10 flex h-[100px] w-[120px] flex-col items-center justify-center rounded-2xl border border-cyan-300 bg-cyan-50 shadow-sm">
+        <div className="absolute left-[620px] top-[410px] z-10 flex h-[105px] w-[115px] flex-col items-center justify-center rounded-2xl border-2 border-cyan-200 bg-cyan-50 shadow-sm">
 
           <span className="text-3xl">
             ❄️
@@ -1271,6 +1278,10 @@ const mapLocation = getMapLocation(selectedProduct);
 
           <p className="mt-1 font-bold">
             Frozen
+          </p>
+
+          <p className="text-[9px] text-slate-500">
+            Frozen Foods
           </p>
 
           <div className="mt-2 flex gap-2">
@@ -1281,9 +1292,9 @@ const mapLocation = getMapLocation(selectedProduct);
 
         </div>
 
-        {/* ====================== */}
-        {/* SUPERMARKET SHELVES */}
-        {/* ====================== */}
+        {/* ===================== */}
+        {/* REAL STORE SHELVES */}
+        {/* ===================== */}
 
         {mapShelves.map((shelf) => (
           <div
@@ -1291,19 +1302,20 @@ const mapLocation = getMapLocation(selectedProduct);
             style={{
               left: `${shelf.left}px`,
               top: `${shelf.top}px`,
+              width: `${shelf.width}px`,
             }}
-            className="absolute z-10 h-[60px] w-[170px]"
+            className="absolute z-10 h-[72px]"
           >
 
-            {/* AISLE SIGN */}
-            <div className="absolute -top-5 left-1/2 z-20 -translate-x-1/2 rounded-full bg-blue-600 px-3 py-1 text-[10px] font-bold text-white shadow">
+            {/* AISLE LABEL */}
+            <div className="absolute -top-5 left-1/2 z-20 -translate-x-1/2 rounded-full bg-blue-600 px-3 py-1 text-[9px] font-bold text-white shadow-sm">
               Aisle {shelf.aisle}
             </div>
 
-            {/* GONDOLA SHELF */}
-            <div className="h-full rounded-lg border border-slate-300 bg-white shadow-md">
+            <div className="h-full rounded-xl border border-slate-300 bg-white shadow-md">
 
-              <div className="flex h-[25px] items-center justify-center gap-2 border-b border-slate-200">
+              {/* SHELF HEADER */}
+              <div className="flex h-[28px] items-center justify-center gap-2 border-b border-slate-200">
 
                 <span>
                   {shelf.emoji}
@@ -1315,11 +1327,12 @@ const mapLocation = getMapLocation(selectedProduct);
 
               </div>
 
-              <div className="space-y-1 px-2 pt-1">
+              {/* SHELF LINES */}
+              <div className="space-y-1.5 px-3 pt-2">
 
-                <div className="h-[5px] rounded-full bg-slate-300" />
-                <div className="h-[5px] rounded-full bg-slate-300" />
-                <div className="h-[5px] rounded-full bg-slate-300" />
+                <div className="h-[5px] rounded bg-slate-300" />
+                <div className="h-[5px] rounded bg-slate-300" />
+                <div className="h-[5px] rounded bg-slate-300" />
 
               </div>
 
@@ -1328,65 +1341,99 @@ const mapLocation = getMapLocation(selectedProduct);
           </div>
         ))}
 
-        {/* ====================== */}
-        {/* CHECKOUT AREA */}
-        {/* ====================== */}
-
-        <div className="absolute left-[150px] top-[525px] z-10">
-
-          <p className="mb-2 text-[10px] font-bold uppercase tracking-wider text-slate-400">
-            Checkout Area
-          </p>
-
-          <div className="flex gap-2">
-
-            {[1, 2, 3, 4].map((checkout) => (
-              <div
-                key={checkout}
-                className="flex h-[52px] w-[95px] items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white shadow-sm"
-              >
-
-                <span>
-                  🛒
-                </span>
-
-                <div>
-                  <p className="text-[8px] text-slate-400">
-                    Checkout
-                  </p>
-
-                  <p className="text-sm font-bold">
-                    {checkout}
-                  </p>
-                </div>
-
-              </div>
-            ))}
-
-          </div>
-
-        </div>
-
+        {/* ===================== */}
         {/* CUSTOMER SERVICE */}
-        <div className="absolute bottom-[22px] left-[20px] z-10 rounded-xl border border-slate-200 bg-white px-3 py-2 text-center shadow-sm">
+        {/* ===================== */}
 
-          <span className="text-lg">
+        <div className="absolute bottom-[20px] left-[20px] z-10 flex h-[70px] w-[105px] flex-col items-center justify-center rounded-xl border border-slate-200 bg-white shadow-sm">
+
+          <span className="text-xl">
             ℹ️
           </span>
 
-          <p className="text-[9px] font-semibold">
+          <span className="mt-1 text-[9px] font-bold">
             Customer Service
-          </p>
+          </span>
 
         </div>
 
-        {/* ====================== */}
-        {/* ENTRANCE */}
-        {/* ====================== */}
+       
+{/* ===================== */}
+{/* CHECKOUT AREA */}
+{/* ===================== */}
 
-        <div className="absolute bottom-[20px] right-[20px] z-10 flex h-[85px] w-[120px] flex-col items-center justify-center rounded-2xl border-2 border-green-400 bg-green-50 shadow-sm">
+<div className="absolute bottom-[20px] left-[150px] z-10">
 
-          <span className="text-3xl">
+  <p className="absolute -top-5 left-0 whitespace-nowrap text-[9px] font-bold uppercase tracking-wider text-slate-400">
+    Checkout area
+  </p>
+
+</div>
+
+{/* CHECKOUT 1 */}
+<div className="absolute bottom-[20px] left-[150px] z-10 flex h-[55px] w-[80px] items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white shadow-sm">
+
+  <span>
+    🛒
+  </span>
+
+  <div>
+    <p className="text-[8px] text-slate-400">
+      Checkout
+    </p>
+
+    <p className="font-bold">
+      1
+    </p>
+  </div>
+
+</div>
+
+{/* CHECKOUT 2 */}
+<div className="absolute bottom-[20px] left-[250px] z-10 flex h-[55px] w-[80px] items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white shadow-sm">
+
+  <span>
+    🛒
+  </span>
+
+  <div>
+    <p className="text-[8px] text-slate-400">
+      Checkout
+    </p>
+
+    <p className="font-bold">
+      2
+    </p>
+  </div>
+
+</div>
+
+{/* CHECKOUT 3 */}
+<div className="absolute bottom-[20px] left-[470px] z-10 flex h-[55px] w-[80px] items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white shadow-sm">
+
+  <span>
+    🛒
+  </span>
+
+  <div>
+    <p className="text-[8px] text-slate-400">
+      Checkout
+    </p>
+
+    <p className="font-bold">
+      3
+    </p>
+  </div>
+
+</div>
+
+        {/* ===================== */}
+        {/* CENTER ENTRANCE */}
+        {/* ===================== */}
+
+        <div className="absolute bottom-[15px] left-[395px] z-20 flex h-[80px] w-[90px] -translate-x-1/2 flex-col items-center justify-center rounded-xl border-2 border-green-300 bg-green-50 shadow-sm">
+
+          <span className="text-2xl">
             🚪
           </span>
 
@@ -1394,29 +1441,30 @@ const mapLocation = getMapLocation(selectedProduct);
             Entrance
           </p>
 
-          <p className="text-[9px] text-green-600">
+          <p className="text-[8px] text-green-600">
             Scan QR here
           </p>
 
         </div>
 
         {/* EXIT */}
-        <div className="absolute bottom-[20px] right-[155px] z-10 rounded-xl border border-slate-200 bg-white px-4 py-2 text-xs font-bold">
+        <div className="absolute bottom-[20px] right-[18px] z-10 flex h-[55px] w-[72px] items-center justify-center rounded-xl border border-slate-200 bg-white text-xs font-bold shadow-sm">
           Exit →
         </div>
 
-        {/* ====================== */}
-        {/* DYNAMIC ROUTE */}
-        {/* ====================== */}
-
-        {navigationStarted && (
+        {/* ===================== */}
+        {/* ROUTE */}
+        {/* ===================== */}
+  
+{navigationStarted && (
   <svg
     className="pointer-events-none absolute inset-0 z-30 h-full w-full"
     viewBox="0 0 760 650"
   >
-    {/* soft white border */}
-    <polyline
-      points={mapLocation.route}
+
+    {/* WHITE BORDER */}
+    <path
+      d={routePath}
       fill="none"
       stroke="white"
       strokeWidth="10"
@@ -1424,26 +1472,63 @@ const mapLocation = getMapLocation(selectedProduct);
       strokeLinejoin="round"
     />
 
-    {/* main blue route */}
-    <polyline
-      points={mapLocation.route}
+    {/* BLUE ROUTE */}
+    <path
+      d={routePath}
       fill="none"
       stroke="#2563eb"
       strokeWidth="5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
+
+    {/* MOVING ARROW 1 */}
+    <g>
+      <path
+        d="M -5 -4 L 5 0 L -5 4 Z"
+        fill="white"
+        stroke="#2563eb"
+        strokeWidth="1"
+      />
+
+      <animateMotion
+        dur="3s"
+        repeatCount="indefinite"
+        rotate="auto"
+        path={routePath}
+      />
+    </g>
+
+    {/* MOVING ARROW 2 */}
+    <g>
+      <path
+        d="M -5 -4 L 5 0 L -5 4 Z"
+        fill="white"
+        stroke="#2563eb"
+        strokeWidth="1"
+      />
+
+      <animateMotion
+        dur="3s"
+        begin="-1.5s"
+        repeatCount="indefinite"
+        rotate="auto"
+        path={routePath}
+      />
+    </g>
+
   </svg>
 )}
 
-        {/* ====================== */}
+
+        {/* ===================== */}
         {/* YOU ARE HERE */}
-        {/* ====================== */}
+        {/* ===================== */}
 
         <div
           className="absolute z-40"
           style={{
-            left: "665px",
+            left: "380px",
             top: "590px",
           }}
         >
@@ -1456,57 +1541,57 @@ const mapLocation = getMapLocation(selectedProduct);
 
           </div>
 
-          <span className="absolute left-1/2 top-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-2 py-1 text-[9px] font-semibold text-white shadow">
+          <span className="absolute left-1/2 top-4 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-2 py-1 text-[8px] font-semibold text-white shadow">
             You are here
           </span>
 
         </div>
 
-        {/* ====================== */}
-        {/* PRODUCT DESTINATION */}
-        {/* ====================== */}
+        {/* ===================== */}
+        {/* DESTINATION */}
+        {/* ===================== */}
 
-       {navigationStarted && (
-  <div
-    className="absolute z-40 -translate-x-1/2 -translate-y-1/2"
-    style={{
-      left: `${mapLocation.x}px`,
-      top: `${mapLocation.y}px`,
-    }}
-  >
-    {/* small floating label */}
-    <div className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-3 py-1 text-[10px] font-semibold text-white shadow-md">
-      {selectedProduct.emoji} {selectedProduct.name}
-    </div>
+        {navigationStarted && (
+          <div
+            className="absolute z-40 -translate-x-1/2 -translate-y-1/2"
+            style={{
+              left: `${mapLocation.x}px`,
+              top: `${mapLocation.y}px`,
+            }}
+          >
 
-    {/* pulse ring */}
-    <div className="absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/25 animate-ping" />
+            <div className="absolute bottom-5 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-blue-600 px-2.5 py-1 text-[9px] font-semibold text-white shadow-md">
+              {selectedProduct.emoji} {selectedProduct.name}
+            </div>
 
-    {/* clean destination dot */}
-    <div className="relative h-5 w-5 rounded-full border-4 border-white bg-blue-600 shadow-lg" />
-  </div>
-)}
+            <div className="absolute left-1/2 top-1/2 h-7 w-7 -translate-x-1/2 -translate-y-1/2 rounded-full bg-blue-400/25 animate-ping" />
+
+            <div className="relative h-5 w-5 rounded-full border-4 border-white bg-blue-600 shadow-lg" />
+
+          </div>
+        )}
 
       </div>
 
     </div>
 
+    {/* ROUTE BUTTON */}
     <button
       onClick={startNavigation}
       className="mt-5 flex w-full items-center justify-center gap-3 rounded-xl border-2 border-blue-600 py-3.5 font-semibold text-blue-600 transition duration-200 hover:bg-blue-600 hover:text-white active:scale-[0.98]"
     >
+
       <Map size={22} />
 
       {navigationStarted
         ? `Route to ${selectedProduct.name}`
         : "Browse Store Map"}
+
     </button>
 
   </div>
 
 </div>
-
-
 
 
         </section>
