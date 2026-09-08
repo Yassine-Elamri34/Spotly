@@ -1,1 +1,71 @@
 @import "tailwindcss";
+
+@keyframes spotlyLookAround {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  15% {
+    transform: translate(3px, 0);
+  }
+
+  30% {
+    transform: translate(3px, -2px);
+  }
+
+  45% {
+    transform: translate(-3px, -1px);
+  }
+
+  60% {
+    transform: translate(-3px, 2px);
+  }
+
+  75% {
+    transform: translate(2px, 2px);
+  }
+
+  90% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+@keyframes spotlyBlink {
+  0%,
+  45%,
+  49%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  47% {
+    transform: scaleY(0.2);
+  }
+}
+
+.spotly-pupil {
+  animation: spotlyLookAround 4s ease-in-out infinite;
+}
+
+.spotly-eye-white {
+  animation: spotlyBlink 6s ease-in-out infinite;
+}
+
+.spotly-logo-eye {
+  transition: transform 0.3s ease;
+}
+
+.spotly-logo-eye:hover {
+  transform: rotate(-5deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotly-pupil,
+  .spotly-eye-white {
+    animation: none;
+  }
+}

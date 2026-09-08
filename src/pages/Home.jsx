@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { searchProducts } from "../services/productService";
-
+import SpotlyLogo from "../components/SpotlyLogo";
+import { Link } from "react-router-dom";
 import {
   Search,
   Mic,
@@ -518,19 +519,7 @@ const routePath = mapLocation.route
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-8">
 
           {/* LOGO */}
-          <button className="flex items-center gap-2 transition hover:scale-[1.02]">
-
-            <div className="relative flex h-10 w-8 items-center justify-center">
-              <div className="absolute h-8 w-8 rotate-45 rounded-[10px] bg-blue-600" />
-              <div className="absolute h-5 w-5 rounded-full bg-white" />
-              <div className="absolute h-2.5 w-2.5 rounded-full bg-green-500" />
-            </div>
-
-            <span className="text-3xl font-bold tracking-tight text-blue-600">
-              Spotly
-            </span>
-
-          </button>
+         <SpotlyLogo />
 
           {/* DESKTOP NAV */}
           <nav className="hidden items-center gap-8 md:flex">
@@ -574,6 +563,13 @@ const routePath = mapLocation.route
             <button className="font-medium text-slate-600 transition hover:text-blue-600">
               My List
             </button>
+
+            <Link
+  to="/about"
+  className="font-medium text-slate-600 transition hover:text-blue-600"
+>
+  About
+</Link>
 
           </nav>
 
