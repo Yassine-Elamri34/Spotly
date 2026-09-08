@@ -210,48 +210,54 @@ const mapShelves = [
     name: "Pantry",
     emoji: "🍝",
     items: "Rice • Pasta • Sauces",
-    left: 175,
-    top: 170,
+    left: 180,
+    top: 185,
+    width: 205,
   },
   {
     aisle: 8,
     name: "Drinks",
     emoji: "🥤",
     items: "Water • Juice • Soda",
-    left: 455,
-    top: 170,
+    left: 430,
+    top: 185,
+    width: 175,
   },
   {
     aisle: 9,
     name: "Personal Care",
     emoji: "🪥",
     items: "Oral • Body • Hygiene",
-    left: 175,
-    top: 285,
+    left: 180,
+    top: 310,
+    width: 205,
   },
   {
     aisle: 10,
     name: "Pet",
     emoji: "🐶",
     items: "Dog • Cat • Pet Care",
-    left: 455,
-    top: 285,
+    left: 430,
+    top: 310,
+    width: 175,
   },
   {
     aisle: 11,
     name: "Baby",
     emoji: "👶",
     items: "Diapers • Baby Care",
-    left: 175,
-    top: 400,
+    left: 180,
+    top: 435,
+    width: 205,
   },
   {
     aisle: 12,
     name: "Pharmacy",
     emoji: "💊",
     items: "Health • Medicine",
-    left: 455,
-    top: 400,
+    left: 430,
+    top: 435,
+    width: 175,
   },
 ];
 
@@ -273,27 +279,40 @@ const getMapLocation = (product) => {
   ) {
     return {
       x: 145,
-      y: 255,
+      y: 275,
       label: "Produce",
       route:
-        "665,590 665,505 405,505 405,255 160,255 145,255",
+        "380,590 380,530 160,530 160,275 145,275",
     };
   }
 
-  // DAIRY / MILK
+  // DELI / CHEESE
+  if (
+    text.includes("cheese") ||
+    text.includes("deli")
+  ) {
+    return {
+      x: 325,
+      y: 135,
+      label: "Deli",
+      route:
+        "380,590 380,530 405,530 405,150 325,150 325,135",
+    };
+  }
+
+  // DAIRY
   if (
     text.includes("milk") ||
-    text.includes("dairy") ||
     text.includes("egg") ||
-    text.includes("cheese") ||
+    text.includes("dairy") ||
     aisle === "2"
   ) {
     return {
-      x: 395,
+      x: 435,
       y: 135,
       label: "Dairy",
       route:
-        "665,590 665,505 405,505 405,150 395,150 395,135",
+        "380,590 380,530 405,530 405,150 435,150 435,135",
     };
   }
 
@@ -305,11 +324,11 @@ const getMapLocation = (product) => {
     aisle === "3"
   ) {
     return {
-      x: 615,
-      y: 255,
+      x: 620,
+      y: 270,
       label: "Bakery",
       route:
-        "665,590 665,505 600,505 600,255 615,255",
+        "380,590 380,530 610,530 610,270 620,270",
     };
   }
 
@@ -321,42 +340,30 @@ const getMapLocation = (product) => {
     aisle === "4"
   ) {
     return {
-      x: 145,
+      x: 215,
       y: 135,
       label: "Meat",
       route:
-        "665,590 665,505 405,505 405,150 145,150 145,135",
+        "380,590 380,530 405,530 405,150 215,150 215,135",
     };
   }
 
-  // SEAFOOD
-  if (
-    text.includes("shrimp") ||
-    text.includes("seafood") ||
-    aisle === "5"
-  ) {
-    return {
-      x: 615,
-      y: 405,
-      label: "Frozen Seafood",
-      route:
-        "665,590 665,505 600,505 600,405 615,405",
-    };
-  }
-
-  // FROZEN
+  // FROZEN / SEAFOOD
   if (
     text.includes("pizza") ||
     text.includes("fries") ||
+    text.includes("shrimp") ||
+    text.includes("seafood") ||
     text.includes("frozen") ||
+    aisle === "5" ||
     aisle === "6"
   ) {
     return {
-      x: 615,
-      y: 405,
+      x: 620,
+      y: 470,
       label: "Frozen",
       route:
-        "665,590 665,505 600,505 600,405 615,405",
+        "380,590 380,530 610,530 610,470 620,470",
     };
   }
 
@@ -368,11 +375,11 @@ const getMapLocation = (product) => {
     aisle === "7"
   ) {
     return {
-      x: 345,
-      y: 205,
+      x: 390,
+      y: 220,
       label: "Aisle 7",
       route:
-        "665,590 665,505 405,505 405,205 345,205",
+        "380,590 380,530 405,530 405,220 390,220",
     };
   }
 
@@ -385,11 +392,11 @@ const getMapLocation = (product) => {
     aisle === "8"
   ) {
     return {
-      x: 455,
-      y: 205,
+      x: 425,
+      y: 220,
       label: "Aisle 8",
       route:
-        "665,590 665,505 405,505 405,205 455,205",
+        "380,590 380,530 405,530 405,220 425,220",
     };
   }
 
@@ -400,11 +407,11 @@ const getMapLocation = (product) => {
     aisle === "9"
   ) {
     return {
-      x: 345,
-      y: 320,
+      x: 390,
+      y: 345,
       label: "Aisle 9",
       route:
-        "665,590 665,505 405,505 405,320 345,320",
+        "380,590 380,530 405,530 405,345 390,345",
     };
   }
 
@@ -416,11 +423,11 @@ const getMapLocation = (product) => {
     aisle === "10"
   ) {
     return {
-      x: 455,
-      y: 320,
+      x: 425,
+      y: 345,
       label: "Aisle 10",
       route:
-        "665,590 665,505 405,505 405,320 455,320",
+        "380,590 380,530 405,530 405,345 425,345",
     };
   }
 
@@ -431,11 +438,11 @@ const getMapLocation = (product) => {
     aisle === "11"
   ) {
     return {
-      x: 345,
-      y: 435,
+      x: 390,
+      y: 470,
       label: "Aisle 11",
       route:
-        "665,590 665,505 405,505 405,435 345,435",
+        "380,590 380,530 405,530 405,470 390,470",
     };
   }
 
@@ -446,20 +453,46 @@ const getMapLocation = (product) => {
     aisle === "12"
   ) {
     return {
-      x: 455,
-      y: 435,
+      x: 425,
+      y: 470,
       label: "Aisle 12",
       route:
-        "665,590 665,505 405,505 405,435 455,435",
+        "380,590 380,530 405,530 405,470 425,470",
+    };
+  }
+
+  // PREPARED FOOD
+  if (
+    text.includes("prepared") ||
+    text.includes("ready meal") ||
+    text.includes("ready-to-eat")
+  ) {
+    return {
+      x: 545,
+      y: 135,
+      label: "Prepared Food",
+      route:
+        "380,590 380,530 405,530 405,150 545,150 545,135",
+    };
+  }
+
+  // SANDWICH
+  if (text.includes("sandwich")) {
+    return {
+      x: 145,
+      y: 455,
+      label: "Sandwich",
+      route:
+        "380,590 380,530 160,530 160,455 145,455",
     };
   }
 
   return {
     x: 405,
-    y: 475,
+    y: 500,
     label: "Main aisle",
     route:
-      "665,590 665,505 405,505 405,475",
+      "380,590 380,530 405,530 405,500",
   };
 };
 
