@@ -330,38 +330,52 @@ const StoreMap = ({
     },
   ];
 
-  return (
-    <div id="store-map">
+return (
+  <div
+    id="store-map"
+    className="min-w-0 w-full scroll-mt-24"
+  >
 
-      {/* TITLE */}
-      <div className="mb-4 flex items-center justify-between">
+    {/* ================================= */}
+    {/* MAP HEADER */}
+    {/* ================================= */}
 
-        <div>
+    <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
 
-          <h2 className="text-2xl font-bold">
-            Store map
-          </h2>
+      <div className="min-w-0">
 
-          <p className="mt-1 text-sm text-slate-500">
-            FreshMart Grocery • Main floor
-          </p>
+        <h2 className="text-xl font-bold sm:text-2xl">
+          Store map
+        </h2>
 
-        </div>
-
-        {navigationStarted && (
-          <span className="rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-700">
-            Navigation started
-          </span>
-        )}
+        <p className="mt-1 text-xs text-slate-500 sm:text-sm">
+          FreshMart Grocery • Main floor
+        </p>
 
       </div>
 
-      <div className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm">
+      {navigationStarted && (
+        <span className="self-start whitespace-nowrap rounded-full bg-blue-100 px-3 py-1.5 text-xs font-semibold text-blue-700 sm:text-sm">
+          Navigation started
+        </span>
+      )}
 
-        <div className="overflow-x-auto">
+    </div>
+
+    {/* MOBILE MAP INSTRUCTION */}
+    <div className="mb-3 flex items-center gap-2 rounded-xl bg-blue-50 px-3 py-2 text-xs text-blue-700 sm:hidden">
+      <span>↔</span>
+      Swipe left or right to explore the store map
+    </div>
+
+    {/* MAP CARD */}
+    <div className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-sm sm:rounded-3xl sm:p-4">
+
+      {/* MAP SCROLL AREA */}
+      <div className="w-full max-w-full touch-pan-x overflow-x-auto overscroll-x-contain pb-2">
 
           {/* STORE CANVAS */}
-          <div className="relative h-[650px] w-[760px] overflow-hidden rounded-3xl border-2 border-slate-300 bg-white">
+          <div className="relative h-[650px] w-[760px] shrink-0 overflow-hidden rounded-3xl border-2 border-slate-300 bg-white">
 
             {/* STORE NAME */}
             <div className="absolute left-1/2 top-3 z-20 -translate-x-1/2 rounded-full border border-slate-200 bg-white px-5 py-2 text-xs font-bold shadow-sm">
@@ -761,16 +775,22 @@ const StoreMap = ({
         </div>
 
         {/* BUTTON */}
-        <button
-          onClick={startNavigation}
-          className="mt-5 flex w-full items-center justify-center gap-3 rounded-xl border-2 border-blue-600 py-3.5 font-semibold text-blue-600 transition duration-200 hover:bg-blue-600 hover:text-white active:scale-[0.98]"
-        >
+     <button
+  type="button"
+  onClick={startNavigation}
+  className="mt-4 flex min-h-12 w-full min-w-0 items-center justify-center gap-2 rounded-xl border-2 border-blue-600 px-3 py-3 text-center text-sm font-semibold text-blue-600 transition duration-200 hover:bg-blue-600 hover:text-white active:scale-[0.98] sm:mt-5 sm:gap-3 sm:px-4 sm:py-3.5 sm:text-base"
+>
 
-          <Map size={22} />
+          <Map
+  size={21}
+  className="shrink-0"
+/>
 
-          {navigationStarted
-            ? `Route to ${selectedProduct.name}`
-            : "Browse Store Map"}
+<span className="min-w-0 break-words">
+  {navigationStarted
+    ? `Route to ${selectedProduct.name}`
+    : "Browse Store Map"}
+</span>
 
         </button>
 

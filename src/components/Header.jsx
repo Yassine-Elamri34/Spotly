@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+
 import {
   Store,
   ChevronDown,
@@ -12,6 +13,19 @@ import SpotlyLogo from "./SpotlyLogo";
 const Header = () => {
   const [mobileMenu, setMobileMenu] = useState(false);
 
+  const scrollToSection = (sectionId) => {
+    const section = document.getElementById(sectionId);
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+
+    setMobileMenu(false);
+  };
+
   const goHome = () => {
     window.scrollTo({
       top: 0,
@@ -21,137 +35,225 @@ const Header = () => {
     setMobileMenu(false);
   };
 
-  const goToSearch = () => {
-    document
-      .getElementById("search-section")
-      ?.scrollIntoView({
-        behavior: "smooth",
-      });
-
-    setMobileMenu(false);
-  };
-
-  const goToMap = () => {
-    document
-      .getElementById("store-map")
-      ?.scrollIntoView({
-        behavior: "smooth",
-      });
-
-    setMobileMenu(false);
-  };
-
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b border-slate-100 bg-white/95 backdrop-blur-xl">
 
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-6 lg:px-8">
+      {/* MAIN HEADER */}
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
 
         {/* LOGO */}
-        <SpotlyLogo />
+        <div className="shrink-0">
+          <SpotlyLogo />
+        </div>
 
-        {/* DESKTOP NAV */}
-        <nav className="hidden items-center gap-8 md:flex">
+        {/* ================================= */}
+        {/* DESKTOP NAVIGATION */}
+        {/* ================================= */}
+
+        <nav className="hidden items-center gap-5 lg:flex xl:gap-8">
 
           <button
+            type="button"
             onClick={goHome}
-            className="font-medium text-slate-600 transition hover:text-blue-600"
+            className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-600 xl:text-base"
           >
             Home
           </button>
 
           <button
-            onClick={goToSearch}
-            className="font-medium text-slate-600 transition hover:text-blue-600"
+            type="button"
+            onClick={() =>
+              scrollToSection("search-section")
+            }
+            className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-600 xl:text-base"
           >
             Search
           </button>
 
           <button
-            onClick={goToMap}
-            className="font-medium text-slate-600 transition hover:text-blue-600"
+            type="button"
+            onClick={() =>
+              scrollToSection("store-map")
+            }
+            className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-600 xl:text-base"
           >
             Store Map
           </button>
 
-          <button className="font-medium text-slate-600 transition hover:text-blue-600">
+          <button
+            type="button"
+            onClick={() =>
+              scrollToSection("my-list")
+            }
+            className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-600 xl:text-base"
+          >
             My List
           </button>
 
           <Link
             to="/about"
-            className="font-medium text-slate-600 transition hover:text-blue-600"
+            className="whitespace-nowrap text-sm font-medium text-slate-600 transition hover:text-blue-600 xl:text-base"
           >
             About
           </Link>
 
         </nav>
 
-        {/* STORE */}
-        <div className="hidden sm:block">
+        {/* ================================= */}
+        {/* STORE - LARGE DESKTOP ONLY */}
+        {/* ================================= */}
 
-          <button className="flex items-center gap-2 rounded-full bg-blue-50 px-4 py-2.5 font-semibold transition duration-200 hover:bg-blue-100 active:scale-95">
+        <div className="hidden shrink-0 xl:block">
+
+          <button
+            type="button"
+            className="flex items-center gap-2 whitespace-nowrap rounded-full bg-blue-50 px-4 py-2.5 text-sm font-semibold transition duration-200 hover:bg-blue-100 active:scale-95"
+          >
 
             <Store
-              size={19}
-              className="text-blue-600"
+              size={18}
+              className="shrink-0 text-blue-600"
             />
 
-            FreshMart Grocery
+            <span>
+              FreshMart Grocery
+            </span>
 
-            <ChevronDown size={17} />
+            <ChevronDown
+              size={16}
+              className="shrink-0"
+            />
 
           </button>
 
         </div>
 
-        {/* MOBILE MENU */}
+        {/* ================================= */}
+        {/* MOBILE / TABLET MENU BUTTON */}
+        {/* ================================= */}
+
         <button
-          onClick={() => setMobileMenu(!mobileMenu)}
-          className="rounded-lg p-2 transition hover:bg-slate-100 active:scale-90 md:hidden"
+          type="button"
+          aria-label={
+            mobileMenu
+              ? "Close navigation menu"
+              : "Open navigation menu"
+          }
+          onClick={() =>
+            setMobileMenu((current) => !current)
+          }
+          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl text-slate-700 transition hover:bg-slate-100 active:scale-90 lg:hidden"
         >
-          {mobileMenu ? <X /> : <Menu />}
+          {mobileMenu ? (
+            <X size={24} />
+          ) : (
+            <Menu size={24} />
+          )}
         </button>
 
       </div>
 
-      {/* MOBILE DROPDOWN */}
+      {/* ================================= */}
+      {/* MOBILE + TABLET MENU */}
+      {/* ================================= */}
+
       {mobileMenu && (
-        <div className="border-t border-slate-100 bg-white px-5 py-4 md:hidden">
+        <div className="border-t border-slate-100 bg-white lg:hidden">
 
-          <div className="flex flex-col gap-4">
+          <div className="mx-auto max-w-7xl px-4 py-5 sm:px-6">
 
-            <button
-              onClick={goHome}
-              className="text-left font-medium"
-            >
-              Home
-            </button>
+            {/* STORE */}
+            <div className="mb-5">
 
-            <button
-              onClick={goToSearch}
-              className="text-left font-medium"
-            >
-              Search
-            </button>
+              <button
+                type="button"
+                className="flex w-full items-center justify-between rounded-2xl bg-blue-50 px-4 py-3.5"
+              >
 
-            <button
-              onClick={goToMap}
-              className="text-left font-medium"
-            >
-              Store Map
-            </button>
+                <div className="flex min-w-0 items-center gap-3">
 
-            <button className="text-left font-medium">
-              My List
-            </button>
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white">
+                    <Store
+                      size={19}
+                      className="text-blue-600"
+                    />
+                  </div>
 
-            <Link
-              to="/about"
-              onClick={() => setMobileMenu(false)}
-              className="font-medium"
-            >
-              About
-            </Link>
+                  <div className="min-w-0 text-left">
+
+                    <p className="text-xs text-slate-500">
+                      Current store
+                    </p>
+
+                    <p className="truncate font-semibold text-slate-900">
+                      FreshMart Grocery
+                    </p>
+
+                  </div>
+
+                </div>
+
+                <ChevronDown
+                  size={18}
+                  className="shrink-0 text-slate-500"
+                />
+
+              </button>
+
+            </div>
+
+            {/* LINKS */}
+            <nav className="flex flex-col">
+
+              <button
+                type="button"
+                onClick={goHome}
+                className="rounded-xl px-3 py-3.5 text-left font-medium text-slate-700 transition hover:bg-slate-50 hover:text-blue-600"
+              >
+                Home
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  scrollToSection("search-section")
+                }
+                className="rounded-xl px-3 py-3.5 text-left font-medium text-slate-700 transition hover:bg-slate-50 hover:text-blue-600"
+              >
+                Search
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  scrollToSection("store-map")
+                }
+                className="rounded-xl px-3 py-3.5 text-left font-medium text-slate-700 transition hover:bg-slate-50 hover:text-blue-600"
+              >
+                Store Map
+              </button>
+
+              <button
+                type="button"
+                onClick={() =>
+                  scrollToSection("my-list")
+                }
+                className="rounded-xl px-3 py-3.5 text-left font-medium text-slate-700 transition hover:bg-slate-50 hover:text-blue-600"
+              >
+                My List
+              </button>
+
+              <Link
+                to="/about"
+                onClick={() =>
+                  setMobileMenu(false)
+                }
+                className="rounded-xl px-3 py-3.5 font-medium text-slate-700 transition hover:bg-slate-50 hover:text-blue-600"
+              >
+                About
+              </Link>
+
+            </nav>
 
           </div>
 

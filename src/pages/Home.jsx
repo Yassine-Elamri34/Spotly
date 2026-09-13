@@ -29,7 +29,10 @@ const defaultProduct = {
 const Home = () => {
   const [search, setSearch] =
     useState("");
-const [listItems, setListItems] = useState([]);
+
+  const [listItems, setListItems] =
+    useState([]);
+
   const [
     selectedProduct,
     setSelectedProduct,
@@ -142,6 +145,7 @@ const [listItems, setListItems] = useState([]);
         )
         ?.scrollIntoView({
           behavior: "smooth",
+          block: "start",
         });
     }, 100);
   };
@@ -159,100 +163,157 @@ const [listItems, setListItems] = useState([]);
       )
       ?.scrollIntoView({
         behavior: "smooth",
+        block: "start",
       });
   };
-const addToList = (product) => {
-  setListItems((currentItems) => {
-    const alreadyExists =
-      currentItems.some(
-        (item) => item.id === product.id
-      );
 
-    if (alreadyExists) {
-      return currentItems;
-    }
+  /* ================================= */
+  /* ADD TO LIST */
+  /* ================================= */
 
-    return [
-      ...currentItems,
-      product,
-    ];
-  });
-};
+  const addToList = (product) => {
+    setListItems(
+      (currentItems) => {
+        const alreadyExists =
+          currentItems.some(
+            (item) =>
+              item.id === product.id
+          );
 
-const removeFromList = (productId) => {
-  setListItems((currentItems) =>
-    currentItems.filter(
-      (item) => item.id !== productId
-    )
-  );
-};
+        if (alreadyExists) {
+          return currentItems;
+        }
 
-const clearList = () => {
-  setListItems([]);
-};
+        return [
+          ...currentItems,
+          product,
+        ];
+      }
+    );
+  };
+
+  /* ================================= */
+  /* REMOVE FROM LIST */
+  /* ================================= */
+
+  const removeFromList = (
+    productId
+  ) => {
+    setListItems(
+      (currentItems) =>
+        currentItems.filter(
+          (item) =>
+            item.id !== productId
+        )
+    );
+  };
+
+  /* ================================= */
+  /* CLEAR LIST */
+  /* ================================= */
+
+  const clearList = () => {
+    setListItems([]);
+  };
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900">
+    <div className="min-h-screen w-full bg-slate-50 text-slate-900">
 
+      {/* ================================= */}
       {/* HEADER */}
+      {/* ================================= */}
+
       <Header />
 
-      <main>
+      <main className="min-w-0">
 
+        {/* ================================= */}
         {/* HERO + SEARCH */}
-       <HeroSection
-  search={search}
-  setSearch={setSearch}
-  searchResults={searchResults}
-  loading={loading}
-  error={error}
-  guideToProduct={guideToProduct}
-  addToList={addToList}
-  listItems={listItems}
-/>
+        {/* ================================= */}
 
-        {/* QR START LOCATION */}
+        <HeroSection
+          search={search}
+          setSearch={setSearch}
+          searchResults={
+            searchResults
+          }
+          loading={loading}
+          error={error}
+          guideToProduct={
+            guideToProduct
+          }
+          addToList={addToList}
+          listItems={listItems}
+        />
+
+        {/* ================================= */}
+        {/* START POINT */}
+        {/* ================================= */}
+
         <StartPoint />
 
-        {/* PRODUCT + MAP */}
-        <section className="mx-auto grid max-w-7xl gap-8 px-5 py-10 sm:px-6 lg:grid-cols-[0.8fr_1.2fr] lg:px-8">
+        {/* ================================= */}
+        {/* PRODUCT + STORE MAP */}
+        {/* ================================= */}
 
-          <ProductFound
-            selectedProduct={
-              selectedProduct
-            }
-            startNavigation={
-              startNavigation
-            }
-          />
+        <section className="mx-auto grid min-w-0 max-w-7xl grid-cols-1 gap-8 px-4 py-8 sm:px-6 sm:py-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:px-8">
 
-          <StoreMap
-            selectedProduct={
-              selectedProduct
-            }
-            navigationStarted={
-              navigationStarted
-            }
-            startNavigation={
-              startNavigation
-            }
-          />
+          {/* PRODUCT */}
+          <div className="min-w-0">
+            <ProductFound
+              selectedProduct={
+                selectedProduct
+              }
+              startNavigation={
+                startNavigation
+              }
+            />
+          </div>
 
-       </section>
+          {/* STORE MAP */}
+          <div className="min-w-0">
+            <StoreMap
+              selectedProduct={
+                selectedProduct
+              }
+              navigationStarted={
+                navigationStarted
+              }
+              startNavigation={
+                startNavigation
+              }
+            />
+          </div>
 
-{/* MY SHOPPING LIST */}
-<MyList
-  listItems={listItems}
-  removeFromList={removeFromList}
-  clearList={clearList}
-  guideToProduct={guideToProduct}
-/>
+        </section>
 
-{/* HOW IT WORKS */}
-<HowItWorks />
+        {/* ================================= */}
+        {/* MY SHOPPING LIST */}
+        {/* ================================= */}
+
+        <MyList
+          listItems={listItems}
+          removeFromList={
+            removeFromList
+          }
+          clearList={clearList}
+          guideToProduct={
+            guideToProduct
+          }
+        />
+
+        {/* ================================= */}
+        {/* HOW IT WORKS */}
+        {/* ================================= */}
+
+        <HowItWorks />
 
       </main>
 
-      {/* MOBILE NAV */}
+      {/* ================================= */}
+      {/* MOBILE BOTTOM NAVIGATION */}
+      {/* ================================= */}
+
       <MobileBottomNav />
 
     </div>
