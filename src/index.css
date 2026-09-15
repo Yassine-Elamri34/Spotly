@@ -69,3 +69,171 @@
     animation: none;
   }
 }
+/* ========================================= */
+/* SPOTLY INTERACTIVE LOGO */
+/* ========================================= */
+
+.spotly-logo-container {
+  isolation: isolate;
+}
+
+/* OUTER SHAPE */
+
+.spotly-logo-shape {
+  transform-origin: center;
+}
+
+.spotly-logo-container:hover
+.spotly-logo-shape {
+  transform:
+    rotate(52deg)
+    scale(1.08);
+}
+
+
+/* ========================================= */
+/* GLOW */
+/* ========================================= */
+
+.spotly-logo-glow {
+  animation:
+    spotlyGlow 3s ease-in-out infinite;
+}
+
+@keyframes spotlyGlow {
+  0%,
+  100% {
+    opacity: 0.25;
+    transform: scale(0.9);
+  }
+
+  50% {
+    opacity: 0.65;
+    transform: scale(1.15);
+  }
+}
+
+
+/* ========================================= */
+/* SCANNING RING */
+/* ========================================= */
+
+.spotly-scan-ring {
+  animation:
+    spotlyScan 3s ease-out infinite;
+}
+
+@keyframes spotlyScan {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  35% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+}
+
+
+/* ========================================= */
+/* EYE BLINK */
+/* ========================================= */
+
+.spotly-eye {
+  position: relative;
+}
+
+.spotly-eyelid {
+  transform-origin: top;
+  transform: scaleY(0);
+
+  animation:
+    spotlyBlink 5s infinite;
+}
+
+@keyframes spotlyBlink {
+  0%,
+  44%,
+  48%,
+  100% {
+    transform: scaleY(0);
+  }
+
+  45%,
+  47% {
+    transform: scaleY(1);
+  }
+}
+
+
+/* ========================================= */
+/* PUPIL */
+/* ========================================= */
+
+.spotly-pupil {
+  box-shadow:
+    0 1px 4px rgba(34, 197, 94, 0.35);
+}
+
+
+/* ========================================= */
+/* SPARKLE */
+/* ========================================= */
+
+.spotly-sparkle {
+  animation:
+    spotlySparkle 2.4s ease-in-out infinite;
+}
+
+@keyframes spotlySparkle {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: scale(0.7);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.4);
+  }
+}
+
+
+/* ========================================= */
+/* WORDMARK */
+/* ========================================= */
+
+.spotly-wordmark {
+  transition:
+    transform 250ms ease,
+    letter-spacing 250ms ease;
+}
+
+.group:hover .spotly-wordmark {
+  transform: translateX(2px);
+}
+
+
+/* ========================================= */
+/* REDUCED MOTION */
+/* ========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .spotly-logo-glow,
+  .spotly-scan-ring,
+  .spotly-eyelid,
+  .spotly-sparkle {
+    animation: none;
+  }
+
+  .spotly-pupil,
+  .spotly-logo-shape,
+  .spotly-wordmark {
+    transition: none;
+  }
+}

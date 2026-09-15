@@ -1,4 +1,3 @@
-import heroShop from "../assets/hero-shop.jpg";
 import {
   Search,
   Mic,
@@ -62,19 +61,65 @@ const HeroSection = ({
 
             </div>
 
-            {/* HERO TITLE */}
-            <h1 className="max-w-2xl text-[2.35rem] font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
+            {/* ================================= */}
+            {/* TITLE + MOBILE / TABLET VIDEO */}
+            {/* ================================= */}
 
-              Find what you need
+            <div className="relative">
 
-              <br />
+              {/* TITLE */}
+              <div className="pr-28 sm:pr-40 md:pr-52 lg:pr-0">
 
-              in{" "}
-              <span className="text-green-500">
-                seconds.
-              </span>
+                <h1 className="max-w-2xl text-[2.15rem] font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
 
-            </h1>
+                  Find what you need
+
+                  <br />
+
+                  in{" "}
+                  <span className="text-green-500">
+                    seconds.
+                  </span>
+
+                </h1>
+
+              </div>
+
+              {/* ================================= */}
+              {/* VIDEO - PHONE / TABLET */}
+              {/* ================================= */}
+
+              <div className="absolute right-0 top-0 flex lg:hidden">
+
+                <div className="flex h-24 w-24 items-center justify-center rounded-full bg-blue-50 p-1.5 sm:h-32 sm:w-32 sm:p-2 md:h-44 md:w-44 md:p-3">
+
+                  <div className="h-full w-full overflow-hidden rounded-full border-2 border-white shadow-lg sm:border-4">
+
+                    <video
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      preload="auto"
+                      className="h-full w-full object-cover"
+                    >
+
+                      <source
+                        src="/videos/shopper.mp4"
+                        type="video/mp4"
+                      />
+
+                      Your browser does not support video.
+
+                    </video>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
 
             {/* HERO DESCRIPTION */}
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:mt-5 sm:text-lg sm:leading-8">
@@ -107,7 +152,9 @@ const HeroSection = ({
               {search && (
                 <button
                   type="button"
-                  onClick={() => setSearch("")}
+                  onClick={() =>
+                    setSearch("")
+                  }
                   aria-label="Clear search"
                   className="mr-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-700 active:scale-90"
                 >
@@ -177,10 +224,11 @@ const HeroSection = ({
                   <div className="max-h-[520px] space-y-3 overflow-y-auto pr-1 sm:pr-2">
 
                     {searchResults.map((product) => {
-                      const isAdded = listItems.some(
-                        (item) =>
-                          item.id === product.id
-                      );
+                      const isAdded =
+                        listItems.some(
+                          (item) =>
+                            item.id === product.id
+                        );
 
                       return (
                         <div
@@ -301,7 +349,9 @@ const HeroSection = ({
                               onClick={() =>
                                 guideToProduct(product)
                               }
-                              disabled={product.stock <= 0}
+                              disabled={
+                                product.stock <= 0
+                              }
                               className={`flex min-h-12 items-center justify-center gap-2 rounded-xl px-3 py-3 text-sm font-semibold transition duration-200 sm:text-base ${
                                 product.stock > 0
                                   ? "bg-blue-600 text-white hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lg active:scale-[0.98]"
@@ -397,36 +447,38 @@ const HeroSection = ({
           </div>
 
           {/* ================================= */}
-{/* RIGHT HERO VIDEO - LARGE DESKTOP */}
-{/* ================================= */}
+          {/* VIDEO - LAPTOP / DESKTOP */}
+          {/* ================================= */}
 
-<div className="hidden min-w-0 justify-center xl:flex xl:justify-end">
+          <div className="hidden min-w-0 items-start justify-center lg:flex lg:justify-end">
 
-  <div className="flex h-[430px] w-[430px] items-center justify-center rounded-full bg-blue-50 p-8">
+            <div className="flex h-[320px] w-[320px] items-center justify-center rounded-full bg-blue-50 p-6 xl:h-[380px] xl:w-[380px] xl:p-7 2xl:h-[430px] 2xl:w-[430px] 2xl:p-8">
 
-    <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
+              <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
 
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="h-full w-full object-cover"
-      >
-        <source
-          src="/videos/shopper.mp4"
-          type="video/mp4"
-        />
+                <video
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  preload="auto"
+                  className="h-full w-full object-cover"
+                >
 
-        Your browser does not support video.
-      </video>
+                  <source
+                    src="/videos/shopper.mp4"
+                    type="video/mp4"
+                  />
 
-    </div>
+                  Your browser does not support video.
 
-  </div>
+                </video>
 
-</div>
+              </div>
+
+            </div>
+
+          </div>
 
         </div>
 
