@@ -89,7 +89,7 @@ const HeroSection = ({
               {/* VIDEO - PHONE / TABLET */}
               {/* ================================= */}
 
-              <div className="absolute right-0 top-0 flex lg:hidden">
+              <div className="absolute right-0 -top-3 flex sm:-top-4 md:-top-5 lg:hidden">
 
                 <div className="flex h-24 w-24 items-center justify-center rounded-full bg-blue-50 p-1.5 sm:h-32 sm:w-32 sm:p-2 md:h-44 md:w-44 md:p-3">
 
