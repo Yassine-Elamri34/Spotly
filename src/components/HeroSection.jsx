@@ -1,3 +1,4 @@
+import heroShop from "../assets/hero-shop.jpg";
 import {
   Search,
   Mic,
@@ -396,38 +397,36 @@ const HeroSection = ({
           </div>
 
           {/* ================================= */}
-          {/* RIGHT HERO VIDEO */}
-          {/* ================================= */}
+{/* RIGHT HERO VIDEO - LARGE DESKTOP */}
+{/* ================================= */}
 
-          <div className="hidden min-w-0 justify-center lg:flex">
+<div className="hidden min-w-0 justify-center xl:flex xl:justify-end">
 
-            <div className="flex h-[360px] w-[360px] max-w-full items-center justify-center rounded-full bg-blue-50 p-6 xl:h-[430px] xl:w-[430px] xl:p-8">
+  <div className="flex h-[430px] w-[430px] items-center justify-center rounded-full bg-blue-50 p-8">
 
-              <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
+    <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
 
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="h-full w-full object-cover"
-                >
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="h-full w-full object-cover"
+      >
+        <source
+          src="/videos/shopper.mp4"
+          type="video/mp4"
+        />
 
-                  <source
-                    src="/videos/shopper.mp4"
-                    type="video/mp4"
-                  />
+        Your browser does not support video.
+      </video>
 
-                  Your browser does not support video.
+    </div>
 
-                </video>
+  </div>
 
-              </div>
-
-            </div>
-
-          </div>
+</div>
 
         </div>
 
