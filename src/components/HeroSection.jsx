@@ -13,12 +13,20 @@ const popular = [
     emoji: "🥛",
   },
   {
-    name: "Bread",
-    emoji: "🥖",
+    name: "Pasta",
+    emoji: "🍝",
   },
   {
     name: "Drinks",
     emoji: "🥤",
+  },
+  {
+    name: "sushi",
+    emoji: "🍣",
+  },
+  {
+    name: "Banana",
+    emoji: "🍌",
   },
 ];
 

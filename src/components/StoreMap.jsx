@@ -1,5 +1,10 @@
-import { Map } from "lucide-react";
+import {
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
+import { Map } from "lucide-react";
 const wallSections = [
   {
     name: "Meat",
@@ -299,6 +304,60 @@ const StoreMap = ({
   navigationStarted,
   startNavigation,
 }) => {
+
+
+
+    const mapWrapperRef = useRef(null);
+
+  const [mapScale, setMapScale] =
+    useState(1);
+
+  useEffect(() => {
+    const updateMapScale = () => {
+      if (!mapWrapperRef.current) {
+        return;
+      }
+
+      const availableWidth =
+        mapWrapperRef.current.clientWidth;
+
+      const originalMapWidth = 760;
+
+      const newScale = Math.min(
+        availableWidth / originalMapWidth,
+        1
+      );
+
+      setMapScale(newScale);
+    };
+
+    updateMapScale();
+
+    const resizeObserver =
+      new ResizeObserver(updateMapScale);
+
+    if (mapWrapperRef.current) {
+      resizeObserver.observe(
+        mapWrapperRef.current
+      );
+    }
+
+    window.addEventListener(
+      "resize",
+      updateMapScale
+    );
+
+    return () => {
+      resizeObserver.disconnect();
+
+      window.removeEventListener(
+        "resize",
+        updateMapScale
+      );
+    };
+  }, []);
+
+
   const mapLocation =
     getMapLocation(selectedProduct);
 
@@ -362,21 +421,28 @@ return (
 
     </div>
 
-    {/* MOBILE MAP INSTRUCTION */}
-    <div className="mb-3 flex items-center gap-2 rounded-xl bg-blue-50 px-3 py-2 text-xs text-blue-700 sm:hidden">
-      <span>↔</span>
-      Swipe left or right to explore the store map
-    </div>
+   
 
-    {/* MAP CARD */}
-    <div className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-sm sm:rounded-3xl sm:p-4">
+   {/* MAP CARD */}
+<div className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-2 shadow-sm sm:rounded-3xl sm:p-4">
 
-      {/* MAP SCROLL AREA */}
-      <div className="w-full max-w-full touch-pan-x overflow-x-auto overscroll-x-contain pb-2">
+  {/* RESPONSIVE MAP AREA */}
+  <div
+    ref={mapWrapperRef}
+    className="relative w-full overflow-hidden"
+    style={{
+      height: `${650 * mapScale}px`,
+    }}
+  >
 
-          {/* STORE CANVAS */}
-          <div className="relative h-[650px] w-[760px] shrink-0 overflow-hidden rounded-3xl border-2 border-slate-300 bg-white">
-
+    {/* STORE CANVAS */}
+    <div
+      className="absolute left-0 top-0 h-[650px] w-[760px] overflow-hidden rounded-3xl border-2 border-slate-300 bg-white"
+      style={{
+        transform: `scale(${mapScale})`,
+        transformOrigin: "top left",
+      }}
+    >
             {/* STORE NAME */}
             <div className="absolute left-1/2 top-3 z-20 -translate-x-1/2 rounded-full border border-slate-200 bg-white px-5 py-2 text-xs font-bold shadow-sm">
               FreshMart Grocery
