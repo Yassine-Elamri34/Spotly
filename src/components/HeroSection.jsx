@@ -113,9 +113,9 @@ const HeroSection = ({
                     >
 
                       <source
-                        src="/videos/shopper.mp4"
-                        type="video/mp4"
-                      />
+  src={`${import.meta.env.BASE_URL}videos/shopper.mp4`}
+  type="video/mp4"
+/>
 
                       Your browser does not support video.
 
