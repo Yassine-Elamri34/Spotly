@@ -1,5 +1,7 @@
 import {
   useEffect,
+  useLayoutEffect,
+  useRef,
   useState,
 } from "react";
 
@@ -53,6 +55,83 @@ const Home = () => {
 
   const [error, setError] =
     useState("");
+    const productRef = useRef(null);
+const mapRef = useRef(null);
+const routeRef = useRef(null);
+
+const [showRouteSummary, setShowRouteSummary] =
+  useState(false);
+
+useLayoutEffect(() => {
+  const checkRouteSpace = () => {
+    if (
+      !productRef.current ||
+      !mapRef.current ||
+      !routeRef.current
+    ) {
+      return;
+    }
+
+    // Never show on phone/tablet.
+    if (window.innerWidth < 1024) {
+      setShowRouteSummary(false);
+      return;
+    }
+
+    const productHeight =
+      productRef.current.getBoundingClientRect().height;
+
+    const mapHeight =
+      mapRef.current.getBoundingClientRect().height;
+
+    const routeHeight =
+      routeRef.current.getBoundingClientRect().height;
+
+    // 16px = mt-4 between ProductFound and Quick Navigation.
+    const availableSpace =
+      mapHeight - productHeight - 16;
+
+    // Give ourselves a little safety room.
+    const fits =
+      availableSpace >= routeHeight + 8;
+
+    setShowRouteSummary(fits);
+  };
+
+  const frame =
+    requestAnimationFrame(checkRouteSpace);
+
+  const observer =
+    new ResizeObserver(checkRouteSpace);
+
+  if (productRef.current) {
+    observer.observe(productRef.current);
+  }
+
+  if (mapRef.current) {
+    observer.observe(mapRef.current);
+  }
+
+  if (routeRef.current) {
+    observer.observe(routeRef.current);
+  }
+
+  window.addEventListener(
+    "resize",
+    checkRouteSpace
+  );
+
+  return () => {
+    cancelAnimationFrame(frame);
+    observer.disconnect();
+
+    window.removeEventListener(
+      "resize",
+      checkRouteSpace
+    );
+  };
+}, []);
+
 
   /* ================================= */
   /* SEARCH DATABASE */
@@ -290,7 +369,7 @@ const Home = () => {
     </div>
 
     {/* ROUTE STEPS */}
-    <div className="space-y-1">
+    <div >
 
       {/* START */}
       <div className="flex gap-3">
@@ -354,7 +433,7 @@ const Home = () => {
     </div>
 
     {/* STATUS */}
-    <div className="mt-5 flex items-center gap-2 rounded-xl bg-green-50 px-4 py-3">
+    <div className="mt-3 flex items-center gap-2 rounded-xl bg-green-50 px-3 py-2">
       <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
         ✓
       </div>
@@ -373,7 +452,7 @@ const Home = () => {
     {/* BUTTON */}
     <button
       onClick={startNavigation}
-      className="mt-4 w-full rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
+      className="mt-3 w-full rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
     >
       Start Route →
     </button>
