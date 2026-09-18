@@ -93,7 +93,7 @@ useLayoutEffect(() => {
 
     // Give ourselves a little safety room.
     const fits =
-      availableSpace >= routeHeight + 16;
+      availableSpace >= routeHeight + 8;
 
     setShowRouteSummary(fits);
   };
@@ -350,25 +350,26 @@ useLayoutEffect(() => {
   <div
     ref={routeRef}
     className={`
-      mt-4 rounded-2xl border border-slate-200
-      bg-white p-4 shadow-sm
-      ${
-        showRouteSummary
-          ? "relative block"
-          : "invisible absolute left-0 right-0 top-full pointer-events-none"
-      }
-    `}
+  mt-4 rounded-2xl border border-slate-200
+bg-white p-3 shadow-sm
+  transition-opacity duration-200
+  ${
+    showRouteSummary
+      ? "relative block opacity-100"
+      : "invisible absolute left-0 right-0 top-full pointer-events-none opacity-0"
+  }
+`}
   >
 
     {/* HEADER */}
-    <div className="mb-3 flex items-center justify-between">
+    <div className="mb-2 flex items-center justify-between">
 
       <div>
         <p className="text-xs font-semibold uppercase tracking-wider text-blue-600">
           Your Route
         </p>
 
-        <h3 className="mt-1 text-lg font-bold text-slate-900">
+        <h3 className="text-base font-bold text-slate-900">
           Quick navigation
         </h3>
       </div>
@@ -387,21 +388,21 @@ useLayoutEffect(() => {
 
         <div className="flex flex-col items-center">
 
-          <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-600 text-sm text-white">
+          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-600 text-sm text-white">
             📍
           </div>
 
-          <div className="h-6 w-px bg-blue-200" />
+          <div className="h-4 w-px bg-blue-200" />
 
         </div>
 
         <div className="pt-1">
 
-          <p className="text-sm font-semibold text-slate-900">
+          <p className="text-[13px] font-semibold text-slate-900">
             Store Entrance
           </p>
 
-          <p className="text-xs text-slate-500">
+          <p className="text-[11px] text-slate-500">
             Your starting point
           </p>
 
@@ -482,14 +483,7 @@ useLayoutEffect(() => {
 
     </div>
 
-    {/* BUTTON */}
-    <button
-      type="button"
-      onClick={startNavigation}
-      className="mt-3 w-full rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700"
-    >
-      Start Route →
-    </button>
+   
 
   </div>
 
