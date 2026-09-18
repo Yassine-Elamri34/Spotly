@@ -457,36 +457,36 @@ const HeroSection = ({
           {/* ================================= */}
           {/* VIDEO - LAPTOP / DESKTOP */}
           {/* ================================= */}
+{/* VIDEO - LAPTOP / DESKTOP */}
+<div className="hidden min-w-0 items-start justify-center lg:flex lg:justify-end">
 
-          <div className="hidden min-w-0 items-start justify-center lg:flex lg:justify-end">
+  <div className="flex h-[320px] w-[320px] items-center justify-center rounded-full bg-blue-50 p-6 xl:h-[380px] xl:w-[380px] xl:p-7 2xl:h-[430px] 2xl:w-[430px] 2xl:p-8">
 
-            <div className="flex h-[320px] w-[320px] items-center justify-center rounded-full bg-blue-50 p-6 xl:h-[380px] xl:w-[380px] xl:p-7 2xl:h-[430px] 2xl:w-[430px] 2xl:p-8">
+    <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
 
-              <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        className="h-full w-full object-cover"
+      >
 
-                <video
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  preload="auto"
-                  className="h-full w-full object-cover"
-                >
+        <source
+          src={`${import.meta.env.BASE_URL}videos/shopper.mp4`}
+          type="video/mp4"
+        />
 
-                  <source
-                    src="/videos/shopper.mp4"
-                    type="video/mp4"
-                  />
+        Your browser does not support video.
 
-                  Your browser does not support video.
+      </video>
 
-                </video>
+    </div>
 
-              </div>
+  </div>
 
-            </div>
-
-          </div>
+</div>
 
         </div>
 
