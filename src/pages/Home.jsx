@@ -91,7 +91,7 @@ useLayoutEffect(() => {
     const availableSpace =
       mapHeight - productHeight - 16;
 
-    // Give ourselves a little safety room.
+    // Give ourselves a little safety room
     const fits =
       availableSpace >= routeHeight + 8;
 
