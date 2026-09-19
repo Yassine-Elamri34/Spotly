@@ -6,7 +6,10 @@ import {
   ArrowRight,
   QrCode,
 } from "lucide-react";
-
+import {
+  useEffect,
+  useRef,
+} from "react";
 const popular = [
   {
     name: "Milk",
@@ -40,6 +43,28 @@ const HeroSection = ({
   addToList,
   listItems = [],
 }) => {
+    const mobileVideoRef = useRef(null);
+  const desktopVideoRef = useRef(null);
+
+  useEffect(() => {
+    const tryPlay = (video) => {
+      if (!video) return;
+
+      video.muted = true;
+      video.defaultMuted = true;
+
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Some mobile browsers may temporarily block autoplay.
+        });
+      }
+    };
+
+    tryPlay(mobileVideoRef.current);
+    tryPlay(desktopVideoRef.current);
+  }, []);
   return (
     <section
       id="search-section"
@@ -103,23 +128,38 @@ const HeroSection = ({
 
                   <div className="h-full w-full overflow-hidden rounded-full border-2 border-white shadow-lg sm:border-4">
 
-                    <video
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      preload="auto"
-                      className="h-full w-full object-cover"
-                    >
+                  <video
+  ref={mobileVideoRef}
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+  controls={false}
+  disablePictureInPicture
+  className="h-full w-full object-cover"
+  onLoadedData={(event) => {
+    event.currentTarget.muted = true;
 
-                      <source
-  src={`${import.meta.env.BASE_URL}videos/shopper.mp4`}
-  type="video/mp4"
-/>
+    event.currentTarget
+      .play()
+      .catch(() => {});
+  }}
+  onCanPlay={(event) => {
+    event.currentTarget.muted = true;
 
-                      Your browser does not support video.
+    event.currentTarget
+      .play()
+      .catch(() => {});
+  }}
+>
+  <source
+    src={`${import.meta.env.BASE_URL}videos/shopper.mp4`}
+    type="video/mp4"
+  />
 
-                    </video>
+  Your browser does not support video.
+</video>
 
                   </div>
 
@@ -465,22 +505,37 @@ const HeroSection = ({
     <div className="h-full w-full overflow-hidden rounded-full border-8 border-white shadow-lg">
 
       <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        className="h-full w-full object-cover"
-      >
+  ref={desktopVideoRef}
+  autoPlay
+  loop
+  muted
+  playsInline
+  preload="auto"
+  controls={false}
+  disablePictureInPicture
+  className="h-full w-full object-cover"
+  onLoadedData={(event) => {
+    event.currentTarget.muted = true;
 
-        <source
-          src={`${import.meta.env.BASE_URL}videos/shopper.mp4`}
-          type="video/mp4"
-        />
+    event.currentTarget
+      .play()
+      .catch(() => {});
+  }}
+  onCanPlay={(event) => {
+    event.currentTarget.muted = true;
 
-        Your browser does not support video.
+    event.currentTarget
+      .play()
+      .catch(() => {});
+  }}
+>
+  <source
+    src={`${import.meta.env.BASE_URL}videos/shopper.mp4`}
+    type="video/mp4"
+  />
 
-      </video>
+  Your browser does not support video.
+</video>
 
     </div>
 
