@@ -12,24 +12,54 @@ import {
 } from "react";
 const popular = [
   {
+    id: "popular-milk",
     name: "Milk",
+    category: "Dairy",
+    aisle: "2",
+    section: "Dairy",
+    shelf: "2",
     emoji: "🥛",
+    price: null,
   },
   {
+    id: "popular-pasta",
     name: "Pasta",
+    category: "Pantry",
+    aisle: "7",
+    section: "Pantry",
+    shelf: "2",
     emoji: "🍝",
+    price: null,
   },
   {
+    id: "popular-drinks",
     name: "Drinks",
+    category: "Beverages",
+    aisle: "8",
+    section: "Drinks",
+    shelf: "2",
     emoji: "🥤",
+    price: null,
   },
   {
-    name: "sushi",
+    id: "popular-sushi",
+    name: "Sushi",
+    category: "Prepared Food",
+    aisle: "6",
+    section: "Prepared Food",
+    shelf: "1",
     emoji: "🍣",
+    price: null,
   },
   {
+    id: "popular-banana",
     name: "Banana",
+    category: "Produce",
+    aisle: "1",
+    section: "Produce",
+    shelf: "1",
     emoji: "🍌",
+    price: null,
   },
 ];
 
@@ -468,9 +498,10 @@ const HeroSection = ({
                   <button
                     type="button"
                     key={item.name}
-                    onClick={() =>
-                      setSearch(item.name)
-                    }
+                    onClick={() => {
+  setSearch(item.name);
+  guideToProduct(item);
+}}
                     className={`flex min-h-11 items-center gap-2 rounded-full border px-3.5 py-2 text-sm transition duration-200 hover:-translate-y-0.5 active:scale-95 sm:px-4 sm:py-2.5 ${
                       search.toLowerCase() ===
                       item.name.toLowerCase()
